@@ -2,9 +2,9 @@ cv:
   name: Ian Padilla-Gay
   label: Postdoctoral Scholar
   email: ianpaga@gmail.com
-  location: San Diego, CA
+  location: San Diego, CA, United States
   image: ""
-  summary: Researching neutrino flavor conversion and heavy-element nucleosynthesis in dense astrophysical environments and facilitating multi-messenger astronomy.
+  summary: Researching neutrino flavor conversion and heavy-element nucleosynthesis in dense astrophysical environments and facilitating multi-messenger astronomy
 
   # social_networks:
   #   - network: X
@@ -30,14 +30,13 @@ cv:
         studyType: PhD
         start_date: 2019
         end_date: 2022
-        # score: ""
-        # courses: "Theory of Relativity"
         highlights:
           - Advisor Prof. Irene Tamborra
           - Thesis titled Neutrino Flavor Conversion in Dense Astrophysical Environments
 
       - institution: Lund University
         location: Lund, Sweden
+        url: https://www.particle-nuclear.lu.se/theoretical-particle-physics
         area: Physics
         studyType: MSc
         start_date: 2017
@@ -45,6 +44,17 @@ cv:
         highlights:
           - Advisor Prof. Roman Pasechnik
           - Thesis titled Phenomenology of a 3HDM with a U(1)xZ2 flavor symmetry
+
+      - institution: University of Guanajuato 
+        location: Leon, Mexico
+        url: https://www.ugto.mx/campusleon/dci/
+        area: Physics
+        studyType: BSc
+        start_date: 2012
+        end_date: 2017
+        highlights:
+          - Description 1
+          - Description 2
 
     Experience:
       - company: University of California, Berkeley
