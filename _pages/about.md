@@ -37,6 +37,7 @@ I am an N3AS **Postdoctoral Fellow** at the University of California, Berkeley, 
 My research explores the role of fundamental particles called neutrinos in supernova explosions and neutron star mergers.
 
 In particular, I'm interested in:
--Neutrino oscillations and heavy-element nucleosynthesis in dense astrophysical environments.
--Approximating the effects of neutrino oscillations in state-of-the-art hydrodynamical simulations.
--Studying the conditions and outcomes of heavy-element nucleosynthesis.
+- Neutrino oscillations and heavy-element nucleosynthesis in dense astrophysical environments.
+- Approximating the effects of neutrino oscillations in state-of-the-art hydrodynamical simulations.
+- Studying the conditions and outcomes of heavy-element nucleosynthesis.
+
