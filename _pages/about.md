@@ -40,4 +40,8 @@ My research focuses on neutrino flavor conversion and heavy-element nucleosynthe
 
 <!-- **Have a look at my peer-reviwed publications below!** -->
 
-![The core of a massive star (M > 8 solar masses) collapses. The implosion triggers a core-collapse supernova explosion. Neutrinos of all flavors are produced in huge quantities](assets/img/KeplerSN1604.jpg)
+<!-- ![The core of a massive star (M > 8 solar masses) collapses. The implosion triggers a core-collapse supernova explosion. Neutrinos of all flavors are produced in huge quantities](assets/img/KeplerSN1604.jpg) -->
+
+<p align="center">
+  <img src="assets/img/KeplerSN1604.jpg" width="450">
+</p>
