@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Graduated with a PhD in Physics from the University of Copenhagen :mortar_board:
+Graduated with a PhD in Physics from the University of Copenhagen

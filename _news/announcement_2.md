@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started as a Postdoctoral Research Associate at SLAC National Lab :satellite:
+Started as a Postdoctoral Research Associate at SLAC National Lab
