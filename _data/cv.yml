@@ -33,8 +33,8 @@ cv:
         # score: ""
         # courses: "Theory of Relativity"
         highlights:
-          - advisor: Prof. Irene Tamborra
-          - thesis: "Neutrino Flavor Conversion in Dense Astrophysical Environments"
+          - "Advisor: Prof. Irene Tamborra"
+          - "Thesis: Neutrino Flavor Conversion in Dense Astrophysical Environments"
 
       - institution: Eidgenössische Technische Hochschule
         location: Zurich, Switzerland
