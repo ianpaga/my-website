@@ -39,3 +39,5 @@ I am an N3AS **Postdoctoral Fellow** at the University of California, Berkeley, 
 My research focuses on neutrino flavor conversion and heavy-element nucleosynthesis in dense astrophysical environments. I am interested in approximating the effects of collective neutrino oscillations in state-of-the-art hydrodynamical simulations and studying the conditions and outcomes of heavy-element nucleosynthesis. At SLAC/Stanford, I investigated how elements heavier than iron—such as Molybdenum-92,94, Ruthenium-96,98, and Niobium-92—are produced, and how general relativistic effects, supernova dynamics, and neutrino heating influence this process. Currently, at UC San Diego, I am investigating the occurnce of flavor instabilities in dense neutrino gases, as well as the role of neutrino oscillations in producing important pronton-rich isotopes in the universe.
 
 <!-- **Have a look at my peer-reviwed publications below!** -->
+
+![alt text](KeplerSN1604.jpg)
