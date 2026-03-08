@@ -7,3 +7,31 @@
 
 "Vision":
   color: "#009f36"
+
+"JCAP":
+  url: https://iopscience.iop.org/journal/1475-7516
+  color: "#1f77b4"  # calm blue
+
+"Thesis":
+  url: https://nbi.ku.dk/english/theses/phd-theses/padilla-gay/
+  color: "#2ca02c"  # medium green
+
+"arXiv":
+  url: https://arxiv.org
+  color: "#d62728"  # vivid red
+
+"PRD":
+  url: https://journals.aps.org/prd/
+  color: "#ff7f0e"  # bright orange
+
+"PRL":
+  url: https://journals.aps.org/prl/
+  color: "#8c564b"  # soft brown
+
+"JHEP":
+  url: https://iopscience.iop.org/journal/1126-6708
+  color: "#e7ba52"  # golden yellow
+
+"JPCS":
+  url: https://iopscience.iop.org/journal/1742-6596
+  color: "#e377c2"  # vibrant pink
