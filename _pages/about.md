@@ -32,32 +32,11 @@ Put your address / P.O. box / other info right below your picture. You can also 
 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
 
-<!-- I am an N3AS Postdoctoral Fellow at the University of California, Berkeley, and a Visiting Scholar at Fuller Lab, UC San Diego. I earned my PhD in Physics from the University of Copenhagen in October 2022 under the supervision of Prof. Irene Tamborra. My research explores the role of fundamental particles called neutrinos in supernova explosions.
+I am an N3AS **Postdoctoral Fellow** at the University of California, Berkeley, and a Visiting Scholar at Fuller Lab, UC San Diego. I earned my PhD in Physics from the University of Copenhagen in October 2022.
 
-My research focuses on neutrino flavor conversion and heavy-element nucleosynthesis in dense astrophysical environments. In particular, I am interested in approximating the effects of collective neutrino oscillations in state-of-the-art hydrodynamical simulations and studying the conditions and outcomes of heavy-element nucleosynthesis. 
+My research explores the role of fundamental particles called neutrinos in supernova explosions and neutron star mergers.
 
-At SLAC/Stanford, I investigated how elements heavier than iron—such as Molybdenum-92,94, Ruthenium-96,98, and Niobium-92—are produced, and how general relativistic effects, supernova dynamics, and neutrino heating influence this process.
-
-Currently, at UC San Diego, I am extending this work to study slow, fast, and collisional instabilities in dense neutrino gases, as well as the role of neutrino mixing in producing important isotopes in supernovae. I am also exploring supermassive stars and how neutrinos streaming from these environments could undergo the MSW effect, impacting both nucleosynthesis and the surrounding astrophysical medium. -->
-
-I am an **N3AS Postdoctoral Fellow** at the University of California, Berkeley, and a **Visiting Scholar** at Fuller Lab, UC San Diego. I earned my **PhD in Physics** from the University of Copenhagen in October 2022 under the supervision of **Prof. Irene Tamborra**. My research explores the role of **neutrinos** in **supernova explosions**.  
-
-## Research Focus
-- **Neutrino flavor conversion** and **heavy-element nucleosynthesis** in dense astrophysical environments
-- Approximating the effects of **collective neutrino oscillations** in **state-of-the-art hydrodynamical simulations**
-- Studying conditions and outcomes of **heavy-element nucleosynthesis**
-
-## Previous Work (SLAC / Stanford)
-- Investigated how elements heavier than iron are produced, including:
-  - **Molybdenum-92,94**
-  - **Ruthenium-96,98**
-  - **Niobium-92**
-- Explored the impact of:
-  - **General relativistic effects**
-  - **Supernova dynamics**
-  - **Neutrino heating**
-
-## Current Work (UC San Diego)
-- Studying **slow, fast, and collisional instabilities** in **dense neutrino gases**
-- Investigating the role of **neutrino mixing** in producing important isotopes in supernovae
-- Exploring **supermassive stars** and how **neutrinos** streaming from these environments undergo the **MSW effect**, impacting **nucleosynthesis** and the surrounding **astrophysical medium**
+In particular, I'm interested in:
+-Neutrino oscillations and heavy-element nucleosynthesis in dense astrophysical environments.
+-Approximating the effects of neutrino oscillations in state-of-the-art hydrodynamical simulations.
+-Studying the conditions and outcomes of heavy-element nucleosynthesis.
