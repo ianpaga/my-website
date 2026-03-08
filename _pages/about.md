@@ -32,16 +32,6 @@ Put your address / P.O. box / other info right below your picture. You can also 
 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
 
-<!-- I am an N3AS Postdoctoral Fellow at the University of California, Berkeley, and a Visiting Scholar at Fuller Lab, UC San Diego. I earned my PhD in Physics from the University of Copenhagen in October 2022.
-
-My research explores the role of fundamental particles called neutrinos in supernova explosions and neutron star mergers. In particular, I'm interested in:
-
-- Neutrino oscillations and heavy-element nucleosynthesis in dense astrophysical environments.
-- Approximating the effects of neutrino oscillations in state-of-the-art hydrodynamical simulations.
-- Studying the conditions and outcomes of heavy-element nucleosynthesis.
-
-Have a look at my peer-reviwed publications below! -->
-
 I am an N3AS **Postdoctoral Fellow** at the University of California, Berkeley, and a Visiting Scholar at Fuller Lab, UC San Diego. I earned my PhD in Physics from the University of Copenhagen in October 2022.
 
 *I aim to uncover the role of neutrinos--fundamental particles--in supernova explosions.* Specifically, my research focuses on neutrino flavor conversion and heavy-element nucleosynthesis in dense astrophysical environments. I am interested in approximating the effects of collective neutrino oscillations in state-of-the-art hydrodynamical simulations and studying the conditions and outcomes of heavy-element nucleosynthesis. At SLAC/Stanford, I investigated how elements heavier than iron—such as Molybdenum-92,94, Ruthenium-96,98, and Niobium-92—are produced, and how general relativistic effects, supernova dynamics, and neutrino heating influence this process. Currently, at UC San Diego, I am investigating the occurnce of flavor instabilities in dense neutrino gases, as well as the role of neutrino oscillations in producing important pronton-rich isotopes in the universe.
