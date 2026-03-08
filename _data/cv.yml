@@ -33,18 +33,18 @@ cv:
         # score: ""
         # courses: "Theory of Relativity"
         highlights:
-          - "Advisor: Prof. Irene Tamborra"
-          - "Thesis: Neutrino Flavor Conversion in Dense Astrophysical Environments"
+          - Advisor Prof. Irene Tamborra
+          - Thesis titled Neutrino Flavor Conversion in Dense Astrophysical Environments
 
-      - institution: Eidgenössische Technische Hochschule
-        location: Zurich, Switzerland
+      - institution: Lund University
+        location: Lund, Sweden
         area: Physics
-        studyType: Federal teaching diploma
-        start_date: 1896
-        end_date: 1900
+        studyType: MSc
+        start_date: 2017
+        end_date: 2019
         highlights:
-          - Description 1.
-          - Description 2.
+          - Advisor Prof. Roman Pasechnik
+          - Thesis titled Phenomenology of a 3HDM with a U(1)xZ2 flavor symmetry
 
     Experience:
       - company: Institute for Advanced Study, Princeton University
