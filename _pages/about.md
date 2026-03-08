@@ -9,7 +9,7 @@ profile:
   image: prof_pic.jpg
   image_circular: true #false # crops the image to make it circular
   more_info: >
-    <p> 5843 Mayer Hall, Physics Dept. </p>
+    <p> Mayer Hall, Physics Dept </p>
     <p> San Diego, CA, United States </p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
