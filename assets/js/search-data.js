@@ -440,19 +440,14 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/my-website/books/the_godfather/";
-            },},{id: "news-a-simple-inline-announcement",
-          title: 'A simple inline announcement.',
-          description: "",
-          section: "News",},{id: "news-a-long-announcement-with-details",
-          title: 'A long announcement with details',
-          description: "",
-          section: "News",handler: () => {
-              window.location.href = "/my-website/news/announcement_2/";
-            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
-          title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
-          description: "",
-          section: "News",},{id: "news-graduated-with-a-phd-in-physics-from-the-university-of-copenhagen",
+            },},{id: "news-graduated-with-a-phd-in-physics-from-the-university-of-copenhagen",
           title: 'Graduated with a PhD in Physics from the University of Copenhagen',
+          description: "",
+          section: "News",},{id: "news-started-as-a-postdoctoral-research-associate-at-slac-national-lab",
+          title: 'Started as a Postdoctoral Research Associate at SLAC National Lab.',
+          description: "",
+          section: "News",},{id: "news-started-as-an-n3as-postdoctoral-fellow-at-uc-berkeley",
+          title: 'Started as an N3AS Postdoctoral Fellow at UC Berkeley',
           description: "",
           section: "News",},{id: "projects-project-1",
           title: 'project 1',
