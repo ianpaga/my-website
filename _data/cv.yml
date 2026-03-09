@@ -52,9 +52,9 @@ cv:
         studyType: BSc
         start_date: 2012
         end_date: 2017
-        highlights:
-          - Description 1
-          - Description 2
+        # highlights:
+        #   - Description 1
+        #   - Description 2
 
     Experience:
       - company: University of California, Berkeley
@@ -68,7 +68,7 @@ cv:
         #   - Description 2.
 
       - company: SLAC National Accelerator Laboratory and Stanford University
-        position: Postdoctoral Research Associate (RA)
+        position: Postdoctoral Research Associate
         location: Palo Alto, CA, US
         start_date: 2023
         end_date: 2025
