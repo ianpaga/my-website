@@ -10,7 +10,7 @@ profile:
   image_circular: true #false # crops the image to make it circular
   more_info: >
     <p> Mayer Hall, Physics Dept </p>
-    <p> San Diego, CA, United States </p>
+    <p> UC San Diego, CA, USA </p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
