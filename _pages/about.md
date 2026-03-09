@@ -45,7 +45,7 @@ My research focuses on neutrino flavor conversion and heavy-element nucleosynthe
   <img src="assets/img/periodic_table.jpg" width="340"><br>
   <sub><em>
   Left: The core of a massive star collapses, triggering a core-collapse supernova explosion where neutrinos of all flavors are produced in huge quantities. Image from 
-  <a href="https://earthspacecircle.blogspot.com/">earthspacecircle</a>. 
+  <a href="https://earthspacecircle.blogspot.com/2013/07/stellar-evolution.html">earthspacecircle</a>. 
   Right: The origin of many isotopes in the solar system remains unknown; environments such as supernovae and neutron star mergers are promising sites for heavy-element synthesis, where neutrinos can alter the conditions under which elements are created. Image from 
   <a href="https://ccapp.osu.edu/news/chemical-history-universe">CCAPP</a>.
   </em></sub>
