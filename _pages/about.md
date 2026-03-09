@@ -32,7 +32,7 @@ Put your address / P.O. box / other info right below your picture. You can also 
 
 Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
 
-I am an N3AS **Postdoctoral Fellow** at the University of California, Berkeley, and a Visiting Scholar at Fuller Lab, UC San Diego. I earned my PhD in Physics from the University of Copenhagen in October 2022.
+I am **Postdoctoral Fellow** at the University of California, Berkeley, and a Visiting Scholar at Fuller Lab, UC San Diego. I earned my PhD in Physics from the University of Copenhagen in October 2022.
 
 *I aim to uncover the role of neutrinos--fundamental particles--in supernova explosions.* 
 
