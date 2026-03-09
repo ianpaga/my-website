@@ -42,7 +42,7 @@ My research focuses on neutrino flavor conversion and heavy-element nucleosynthe
 
 <p align="center">
   <img src="assets/img/SN.jpg" width="280">
-  <img src="assets/img/periodic_table.jpg" width="330"><br>
+  <img src="assets/img/periodic_table.jpg" width="340"><br>
   <sub><em>
   Left: The core of a massive star collapses, triggering a core-collapse supernova explosion where neutrinos of all flavors are produced in huge quantities. Image from 
   <a href="https://earthspacecircle.blogspot.com/">earthspacecircle</a>. 
