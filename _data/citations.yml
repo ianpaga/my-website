@@ -1,8 +1,8 @@
 metadata:
-  last_updated: '2026-04-03'
+  last_updated: '2026-04-10'
 papers:
   DWE-zkEAAAAJ:2osOgNQ5qMEC:
-    citations: 15
+    citations: 16
     title: A three Higgs doublet model with symmetry-suppressed flavour changing neutral currents
     year: '2021'
   DWE-zkEAAAAJ:9yKSN-GCB0IC:
@@ -14,11 +14,11 @@ papers:
     title: Symmetry breaking due to multi-angle matter-neutrino resonance in neutron star merger remnants
     year: '2024'
   DWE-zkEAAAAJ:UeHWp8X0CEIC:
-    citations: 57
+    citations: 58
     title: Neutrino fast flavor pendulum. II. Collisional damping
     year: '2022'
   DWE-zkEAAAAJ:W7OEmFMy1HYC:
-    citations: 9
+    citations: 10
     title: 'Flavor equilibration of supernova neutrinos: Exploring the dynamics of slow modes'
     year: '2025'
   DWE-zkEAAAAJ:Y0pCki6q_DkC:
@@ -34,7 +34,7 @@ papers:
     title: Phenomenology of a Three Higgs Doublet Model with a U (1) xZ2 flavour symmetry
     year: '2019'
   DWE-zkEAAAAJ:qjMakFHDy7sC:
-    citations: 77
+    citations: 78
     title: 'Neutrino flavor pendulum reloaded: The case of fast pairwise conversion'
     year: '2022'
   DWE-zkEAAAAJ:u-x6o8ySG0sC:
@@ -46,6 +46,6 @@ papers:
     title: Neutrino propagation hinders fast pairwise flavor conversions
     year: '2020'
   DWE-zkEAAAAJ:zYLM7Y9cAGgC:
-    citations: 26
+    citations: 27
     title: 'Collisions and collective flavor conversion: Integrating out the fast dynamics'
     year: '2024'
