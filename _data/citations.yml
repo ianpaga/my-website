@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-04-10'
+  last_updated: '2026-04-29'
 papers:
   DWE-zkEAAAAJ:2osOgNQ5qMEC:
     citations: 16
@@ -21,6 +21,10 @@ papers:
     citations: 10
     title: 'Flavor equilibration of supernova neutrinos: Exploring the dynamics of slow modes'
     year: '2025'
+  DWE-zkEAAAAJ:WF5omc3nYNoC:
+    citations: 0
+    title: ournal of Cosmology and Astroparticle Physics
+    year: '2025'
   DWE-zkEAAAAJ:Y0pCki6q_DkC:
     citations: 0
     title: Neutrino Flavor Conversion in Dense Astrophysical Environments
@@ -33,6 +37,10 @@ papers:
     citations: 1
     title: Phenomenology of a Three Higgs Doublet Model with a U (1) xZ2 flavour symmetry
     year: '2019'
+  DWE-zkEAAAAJ:eQOLeE2rZwMC:
+    citations: 0
+    title: Series solutions of single-field models of inflation
+    year: '2018'
   DWE-zkEAAAAJ:qjMakFHDy7sC:
     citations: 78
     title: 'Neutrino flavor pendulum reloaded: The case of fast pairwise conversion'
