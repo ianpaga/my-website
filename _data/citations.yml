@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-05-04'
+  last_updated: '2026-05-22'
 papers:
   DWE-zkEAAAAJ:2osOgNQ5qMEC:
     citations: 16
@@ -14,17 +14,17 @@ papers:
     title: Symmetry breaking due to multi-angle matter-neutrino resonance in neutron star merger remnants
     year: '2024'
   DWE-zkEAAAAJ:UeHWp8X0CEIC:
-    citations: 60
+    citations: 61
     title: Neutrino fast flavor pendulum. II. Collisional damping
     year: '2022'
   DWE-zkEAAAAJ:W7OEmFMy1HYC:
-    citations: 11
+    citations: 12
     title: 'Flavor equilibration of supernova neutrinos: Exploring the dynamics of slow modes'
     year: '2025'
   DWE-zkEAAAAJ:WF5omc3nYNoC:
     citations: 0
     title: ournal of Cosmology and Astroparticle Physics
-    year: '2025'
+    year: '2026'
   DWE-zkEAAAAJ:Y0pCki6q_DkC:
     citations: 0
     title: Neutrino Flavor Conversion in Dense Astrophysical Environments
@@ -53,6 +53,10 @@ papers:
     citations: 59
     title: Neutrino propagation hinders fast pairwise flavor conversions
     year: '2020'
+  DWE-zkEAAAAJ:ufrVoPGSRksC:
+    citations: 0
+    title: Neutrino Flavor Transformation in Collapsing Supermassive Objects
+    year: '2026'
   DWE-zkEAAAAJ:zYLM7Y9cAGgC:
     citations: 27
     title: 'Collisions and collective flavor conversion: Integrating out the fast dynamics'
