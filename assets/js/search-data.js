@@ -16,6 +16,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/my-website/publications/";
           },
+        },{id: "nav-invited-talks",
+          title: "invited talks",
+          description: "Invited seminars, colloquia, workshops, and conference presentations on neutrino physics, supernovae, and nucleosynthesis.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/my-website/talks/";
+          },
         },{id: "nav-cv",
           title: "cv",
           description: "Academic appointments, education, and research experience. Please get in touch for the complete CV.",
