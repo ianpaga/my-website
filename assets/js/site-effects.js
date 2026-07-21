@@ -160,7 +160,7 @@
         transitionAge: 0,
         transitionDuration: 190,
         age: 0,
-        lifetime: isNeutrino ? randomBetween(6800, 11200) : randomBetween(3400, 5600),
+        lifetime: randomBetween(3400, 5600),
         size: isNeutrino ? randomBetween(15, 20) : randomBetween(12, 18),
         rotation: isNeutrino ? randomBetween(-0.08, 0.08) : angle + randomBetween(-0.18, 0.18),
         opacity: isNeutrino ? randomBetween(0.78, 0.96) : randomBetween(0.58, 0.84),
