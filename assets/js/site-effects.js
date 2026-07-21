@@ -34,42 +34,161 @@
   const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
   if (!prefersReducedMotion) {
-    const ambient = document.createElement("div");
-    ambient.className = "cursor-ambient";
-    ambient.setAttribute("aria-hidden", "true");
-    document.body.prepend(ambient);
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d", { alpha: true });
+    const symbols = ["-", "/", "|", "+", "·"];
+    const particles = [];
 
-    let currentX = window.innerWidth * 0.5;
-    let currentY = window.innerHeight * 0.3;
-    let targetX = currentX;
-    let targetY = currentY;
-    let ambientFrame = null;
+    canvas.className = "symbol-field";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.prepend(canvas);
 
-    const renderAmbient = () => {
-      currentX += (targetX - currentX) * 0.09;
-      currentY += (targetY - currentY) * 0.09;
-      ambient.style.setProperty("--ambient-x", `${currentX}px`);
-      ambient.style.setProperty("--ambient-y", `${currentY}px`);
+    let viewportWidth = window.innerWidth;
+    let viewportHeight = window.innerHeight;
+    let pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    let pointerX = viewportWidth * 0.5;
+    let pointerY = viewportHeight * 0.35;
+    let pointerSeen = false;
+    let lastFrame = performance.now();
+    let lastPointerEmission = 0;
+    let accentColor = getComputedStyle(root).getPropertyValue("--site-accent").trim();
 
-      if (Math.abs(targetX - currentX) > 0.2 || Math.abs(targetY - currentY) > 0.2) {
-        ambientFrame = window.requestAnimationFrame(renderAmbient);
-      } else {
-        ambientFrame = null;
+    const randomBetween = (minimum, maximum) => minimum + Math.random() * (maximum - minimum);
+    const randomSymbol = () => symbols[Math.floor(Math.random() * symbols.length)];
+
+    const createAmbientParticle = () => ({
+      type: "ambient",
+      symbol: randomSymbol(),
+      x: Math.random() * viewportWidth,
+      y: Math.random() * viewportHeight,
+      velocityX: randomBetween(-0.014, 0.014),
+      velocityY: randomBetween(-0.018, -0.005),
+      age: randomBetween(0, 5000),
+      lifetime: randomBetween(6500, 11000),
+      size: randomBetween(10, 15),
+      rotation: randomBetween(-0.35, 0.35),
+    });
+
+    const createPointerParticle = () => {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = randomBetween(22, 88);
+      const orbitSpeed = randomBetween(0.018, 0.05);
+
+      return {
+        type: "pointer",
+        symbol: randomSymbol(),
+        x: pointerX + Math.cos(angle) * radius,
+        y: pointerY + Math.sin(angle) * radius,
+        velocityX: Math.cos(angle) * 0.018 - Math.sin(angle) * orbitSpeed,
+        velocityY: Math.sin(angle) * 0.018 + Math.cos(angle) * orbitSpeed,
+        age: 0,
+        lifetime: randomBetween(850, 1700),
+        size: randomBetween(12, 19),
+        rotation: angle + randomBetween(-0.35, 0.35),
+      };
+    };
+
+    const ambientParticleTarget = () => Math.min(48, Math.max(22, Math.round((viewportWidth * viewportHeight) / 32000)));
+
+    const fillAmbientField = () => {
+      const ambientCount = particles.filter((particle) => particle.type === "ambient").length;
+
+      for (let index = ambientCount; index < ambientParticleTarget(); index += 1) {
+        particles.push(createAmbientParticle());
       }
     };
 
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        targetX = event.clientX;
-        targetY = event.clientY;
+    const resizeSymbolField = () => {
+      viewportWidth = window.innerWidth;
+      viewportHeight = window.innerHeight;
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(viewportWidth * pixelRatio);
+      canvas.height = Math.round(viewportHeight * pixelRatio);
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      fillAmbientField();
+    };
 
-        if (ambientFrame === null) {
-          ambientFrame = window.requestAnimationFrame(renderAmbient);
+    const drawParticle = (particle, opacity) => {
+      context.save();
+      context.globalAlpha = opacity;
+      context.fillStyle = accentColor;
+      context.font = `500 ${particle.size}px "Space Grotesk", monospace`;
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.translate(particle.x, particle.y);
+      context.rotate(particle.rotation);
+      context.fillText(particle.symbol, 0, 0);
+      context.restore();
+    };
+
+    const animateSymbolField = (time) => {
+      const elapsed = Math.min(time - lastFrame, 32);
+      lastFrame = time;
+      context.clearRect(0, 0, viewportWidth, viewportHeight);
+
+      if (pointerSeen && time - lastPointerEmission > 95 && particles.length < 90) {
+        particles.push(createPointerParticle());
+        lastPointerEmission = time;
+      }
+
+      for (let index = particles.length - 1; index >= 0; index -= 1) {
+        const particle = particles[index];
+        particle.age += elapsed;
+        particle.x += particle.velocityX * elapsed;
+        particle.y += particle.velocityY * elapsed;
+
+        if (particle.type === "ambient") {
+          if (particle.x < -30) particle.x = viewportWidth + 30;
+          if (particle.x > viewportWidth + 30) particle.x = -30;
+          if (particle.y < -30 || particle.age >= particle.lifetime) {
+            particles.splice(index, 1);
+            continue;
+          }
+
+          const progress = particle.age / particle.lifetime;
+          drawParticle(particle, Math.sin(progress * Math.PI) * 0.22);
+        } else {
+          const progress = particle.age / particle.lifetime;
+
+          if (progress >= 1) {
+            particles.splice(index, 1);
+            continue;
+          }
+
+          particle.velocityX *= 0.996;
+          particle.velocityY *= 0.996;
+          drawParticle(particle, Math.sin(progress * Math.PI) * 0.72);
+        }
+      }
+
+      fillAmbientField();
+      window.requestAnimationFrame(animateSymbolField);
+    };
+
+    window.addEventListener(
+      "mousemove",
+      (event) => {
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        pointerSeen = true;
+
+        if (particles.length < 90) {
+          particles.push(createPointerParticle(), createPointerParticle());
         }
       },
       { passive: true }
     );
+
+    window.addEventListener("resize", resizeSymbolField, { passive: true });
+
+    const themeObserver = new MutationObserver(() => {
+      accentColor = getComputedStyle(root).getPropertyValue("--site-accent").trim();
+    });
+
+    themeObserver.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+    resizeSymbolField();
+    fillAmbientField();
+    window.requestAnimationFrame(animateSymbolField);
   }
 
   const stage = document.querySelector(".research-hero__visual");
