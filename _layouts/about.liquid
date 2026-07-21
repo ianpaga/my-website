@@ -4,37 +4,27 @@ layout: default
 <div class="home-shell">
   <section class="research-hero" aria-labelledby="hero-title">
     <div class="research-hero__copy" data-reveal>
-      <p class="eyebrow"><span></span>{{ page.hero_kicker }}</p>
+      <p class="eyebrow">{{ page.hero_kicker }}</p>
       <h1 id="hero-title">{{ page.hero_title }}</h1>
       <p class="research-hero__intro">{{ page.hero_intro }}</p>
 
       <div class="hero-actions">
         <a class="button button--primary" href="{{ '/publications/' | relative_url }}">
-          Explore publications
+          View publications
           <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
         </a>
-        <a class="button button--secondary" href="{{ '/cv/' | relative_url }}">View academic CV</a>
+        <a class="button button--secondary" href="{{ '/cv/' | relative_url }}">Academic CV</a>
       </div>
 
       <div class="affiliation-row" aria-label="Current affiliations">
-        <span>Currently</span>
+        <span>Currently at</span>
         <a href="https://www.berkeley.edu">UC Berkeley</a>
-        <i aria-hidden="true"></i>
+        <span aria-hidden="true">·</span>
         <a href="https://ucsd.edu">UC San Diego</a>
       </div>
     </div>
 
-    <div class="research-hero__visual" data-reveal data-delay="120">
-      <div class="orbital-stage" aria-hidden="true">
-        <span class="orbit orbit--outer"></span>
-        <span class="orbit orbit--middle"></span>
-        <span class="orbit orbit--inner"></span>
-        <span class="orbit-node orbit-node--one"></span>
-        <span class="orbit-node orbit-node--two"></span>
-        <span class="orbit-node orbit-node--three"></span>
-        <span class="signal-line signal-line--one"></span>
-        <span class="signal-line signal-line--two"></span>
-      </div>
+    <div class="research-hero__visual" data-reveal data-delay="100">
       <div class="portrait-frame">
         {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
         {%
@@ -42,36 +32,15 @@ layout: default
           loading="eager"
           path=profile_image_path
           class="portrait-image"
-          sizes="(min-width: 992px) 420px, 78vw"
+          sizes="(min-width: 992px) 380px, 82vw"
           alt=page.profile.image_alt
           cache_bust=true
         %}
       </div>
-      <div class="coordinate coordinate--top">ν / FLAVOR</div>
-      <div class="coordinate coordinate--bottom">03: ASTRO</div>
-      <div class="visual-caption">
-        <span class="status-dot"></span>
-        N3AS Postdoctoral Fellow
+      <div class="portrait-caption">
+        <span>N3AS Postdoctoral Fellow</span>
+        <span>Theoretical Astrophysics</span>
       </div>
-    </div>
-  </section>
-
-  <section class="signal-strip" aria-label="Research profile" data-reveal>
-    <div>
-      <span class="signal-strip__value">PhD</span>
-      <span>Physics · Copenhagen</span>
-    </div>
-    <div>
-      <span class="signal-strip__value">ν</span>
-      <span>Flavor transformation</span>
-    </div>
-    <div>
-      <span class="signal-strip__value">Fe+</span>
-      <span>Heavy-element origins</span>
-    </div>
-    <div>
-      <span class="signal-strip__value">∞</span>
-      <span>Multi-messenger cosmos</span>
     </div>
   </section>
 
@@ -84,10 +53,10 @@ layout: default
     <section class="home-section home-section--news" data-reveal>
       <div class="section-heading">
         <div>
-          <p class="section-label">Field notes</p>
-          <h2>Recent trajectory</h2>
+          <p class="section-label">Updates</p>
+          <h2>Recent news</h2>
         </div>
-        <a href="{{ '/news/' | relative_url }}">All updates <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+        <a href="{{ '/news/' | relative_url }}">View all</a>
       </div>
       {% include news.liquid limit=true %}
     </section>
@@ -98,11 +67,9 @@ layout: default
       <div class="section-heading">
         <div>
           <p class="section-label">Selected work</p>
-          <h2>Research in focus</h2>
+          <h2>Featured publications</h2>
         </div>
-        <a href="{{ '/publications/' | relative_url }}">
-          Full publication record <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
-        </a>
+        <a href="{{ '/publications/' | relative_url }}">Complete publication list</a>
       </div>
       {% include selected_papers.liquid %}
     </section>
@@ -111,19 +78,16 @@ layout: default
   {% if page.social %}
     <section class="contact-panel" data-reveal>
       <div>
-        <p class="section-label">Open channel</p>
-        <h2>Let’s connect across disciplines.</h2>
-        <p>
-          I welcome conversations about neutrino physics, stellar explosions,
-          nucleosynthesis, and multi-messenger astronomy.
-        </p>
+        <p class="section-label">Contact</p>
+        <h2>Interested in this work?</h2>
+        <p>I welcome conversations and collaborations across neutrino physics, astrophysics, and nucleosynthesis.</p>
       </div>
       <div class="contact-panel__links">
-        <div class="contact-icons">{% social_links %}</div>
         <a class="button button--primary" href="mailto:{{ site.data.socials.email }}">
-          Start a conversation
+          Send an email
           <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
         </a>
+        <div class="contact-icons">{% social_links %}</div>
       </div>
     </section>
   {% endif %}
