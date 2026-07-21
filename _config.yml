@@ -11,7 +11,7 @@ contact_note: >
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Ian Padilla-Gay is a theoretical astrophysicist studying neutrino flavor conversion, supernovae, and the cosmic origin of the elements.
 footer_text: >
-  Exploring the invisible particles that shape stellar explosions and the elements around us.
+  Exploring the invisible particles that power supernovae and the elements around us.
 keywords: theoretical astrophysics, neutrinos, supernovae, nucleosynthesis, multi-messenger astronomy, Ian Padilla-Gay
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)

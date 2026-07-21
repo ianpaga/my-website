@@ -321,7 +321,7 @@
         const proximity = 1 - candidate.distance / connectionDistance;
         const pulse = 0.92 + Math.sin(time * 0.0022 + candidate.firstIndex * 0.9 + candidate.secondIndex * 0.55) * 0.08;
         const lifeOpacity = Math.min(firstParticle.renderOpacity, secondParticle.renderOpacity);
-        const themeOpacity = colorMode === "dark" ? 0.92 : 0.72;
+        const themeOpacity = colorMode === "dark" ? 0.84 : 0.66;
         const linkOpacity = Math.pow(proximity, 0.35) * lifeOpacity * pulse * themeOpacity;
         const gradient = context.createLinearGradient(firstParticle.x, firstParticle.y, secondParticle.x, secondParticle.y);
 

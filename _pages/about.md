@@ -4,7 +4,7 @@ title: about
 permalink: /
 description: "Theoretical astrophysicist studying neutrinos, supernovae, and the cosmic origin of the elements."
 hero_kicker: Theoretical astrophysicist
-hero_title: I study how neutrinos shape stellar explosions—and the elements they leave behind.
+hero_title: I study how neutrinos power supernovae—and the elements they leave behind.
 hero_intro: My research connects the quantum behavior of neutrinos with supernova dynamics and the formation of rare elements in the universe.
 profile:
   image: prof_pic.jpg
