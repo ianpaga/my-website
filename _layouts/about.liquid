@@ -1,80 +1,130 @@
 ---
 layout: default
 ---
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
-      {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
+<div class="home-shell">
+  <section class="research-hero" aria-labelledby="hero-title">
+    <div class="research-hero__copy" data-reveal>
+      <p class="eyebrow"><span></span>{{ page.hero_kicker }}</p>
+      <h1 id="hero-title">{{ page.hero_title }}</h1>
+      <p class="research-hero__intro">{{ page.hero_intro }}</p>
 
-  <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
-          {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
+      <div class="hero-actions">
+        <a class="button button--primary" href="{{ '/publications/' | relative_url }}">
+          Explore publications
+          <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
+        </a>
+        <a class="button button--secondary" href="{{ '/cv/' | relative_url }}">View academic CV</a>
       </div>
-    {% endif %}
 
-    <div class="clearfix">{{ content }}</div>
+      <div class="affiliation-row" aria-label="Current affiliations">
+        <span>Currently</span>
+        <a href="https://www.berkeley.edu">UC Berkeley</a>
+        <i aria-hidden="true"></i>
+        <a href="https://ucsd.edu">UC San Diego</a>
+      </div>
+    </div>
 
-    <!-- News -->
-    {% if page.announcements and page.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
-      </h2>
+    <div class="research-hero__visual" data-reveal data-delay="120">
+      <div class="orbital-stage" aria-hidden="true">
+        <span class="orbit orbit--outer"></span>
+        <span class="orbit orbit--middle"></span>
+        <span class="orbit orbit--inner"></span>
+        <span class="orbit-node orbit-node--one"></span>
+        <span class="orbit-node orbit-node--two"></span>
+        <span class="orbit-node orbit-node--three"></span>
+        <span class="signal-line signal-line--one"></span>
+        <span class="signal-line signal-line--two"></span>
+      </div>
+      <div class="portrait-frame">
+        {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+        {%
+          include figure.liquid
+          loading="eager"
+          path=profile_image_path
+          class="portrait-image"
+          sizes="(min-width: 992px) 420px, 78vw"
+          alt=page.profile.image_alt
+          cache_bust=true
+        %}
+      </div>
+      <div class="coordinate coordinate--top">ν / FLAVOR</div>
+      <div class="coordinate coordinate--bottom">03: ASTRO</div>
+      <div class="visual-caption">
+        <span class="status-dot"></span>
+        N3AS Postdoctoral Fellow
+      </div>
+    </div>
+  </section>
+
+  <section class="signal-strip" aria-label="Research profile" data-reveal>
+    <div>
+      <span class="signal-strip__value">PhD</span>
+      <span>Physics · Copenhagen</span>
+    </div>
+    <div>
+      <span class="signal-strip__value">ν</span>
+      <span>Flavor transformation</span>
+    </div>
+    <div>
+      <span class="signal-strip__value">Fe+</span>
+      <span>Heavy-element origins</span>
+    </div>
+    <div>
+      <span class="signal-strip__value">∞</span>
+      <span>Multi-messenger cosmos</span>
+    </div>
+  </section>
+
+  <section class="home-section home-section--research" aria-labelledby="research-heading">
+    <h2 id="research-heading" class="sr-only">Research overview</h2>
+    {{ content }}
+  </section>
+
+  {% if page.announcements and page.announcements.enabled %}
+    <section class="home-section home-section--news" data-reveal>
+      <div class="section-heading">
+        <div>
+          <p class="section-label">Field notes</p>
+          <h2>Recent trajectory</h2>
+        </div>
+        <a href="{{ '/news/' | relative_url }}">All updates <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+      </div>
       {% include news.liquid limit=true %}
-    {% endif %}
+    </section>
+  {% endif %}
 
-    <!-- Latest posts -->
-    {% if page.latest_posts and page.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
-
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
-      </h2>
-      {% include selected_papers.liquid %}
-    {% endif %}
-
-    <!-- Social -->
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% social_links %}</div>
-
-        <div class="contact-note">{{ site.contact_note }}</div>
+  {% if page.selected_papers %}
+    <section class="home-section home-section--publications" data-reveal>
+      <div class="section-heading">
+        <div>
+          <p class="section-label">Selected work</p>
+          <h2>Research in focus</h2>
+        </div>
+        <a href="{{ '/publications/' | relative_url }}">
+          Full publication record <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
+        </a>
       </div>
-    {% endif %}
+      {% include selected_papers.liquid %}
+    </section>
+  {% endif %}
 
-    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
-      {% include newsletter.liquid center=true %}
-    {% endif %}
-  </article>
+  {% if page.social %}
+    <section class="contact-panel" data-reveal>
+      <div>
+        <p class="section-label">Open channel</p>
+        <h2>Let’s connect across disciplines.</h2>
+        <p>
+          I welcome conversations about neutrino physics, stellar explosions,
+          nucleosynthesis, and multi-messenger astronomy.
+        </p>
+      </div>
+      <div class="contact-panel__links">
+        <div class="contact-icons">{% social_links %}</div>
+        <a class="button button--primary" href="mailto:{{ site.data.socials.email }}">
+          Start a conversation
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  {% endif %}
 </div>

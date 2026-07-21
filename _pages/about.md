@@ -2,51 +2,93 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://www.berkeley.edu'>UC Berkeley</a> | <a href='https://ucsd.edu'>UC San Diego</a> 
-
+description: "Theoretical astrophysicist studying neutrinos, supernovae, and the cosmic origin of the elements."
+hero_kicker: Theoretical astrophysics · Neutrino physics
+hero_title: Tracing the invisible forces behind stellar explosions.
+hero_intro: I study how neutrinos change flavor inside some of the most extreme environments in the universe—and how those transformations shape supernovae and the elements they create.
 profile:
-  align: right
   image: prof_pic.jpg
-  image_circular: true #false # crops the image to make it circular
-  more_info: >
-    <p> Mayer Hall, Physics Dept </p>
-    <p> UC San Diego, CA, USA </p>
+  image_alt: Portrait of Ian Padilla-Gay
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: true
+social: true
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
-
-latest_posts:
-  enabled: false #true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  enabled: true
+  scrollable: false
+  limit: 5
 ---
 
-<!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+<div class="research-copy" data-reveal>
+  <p class="section-label">Research trajectory</p>
+  <h2>From particle behavior to cosmic outcomes.</h2>
+  <p class="research-lead">
+    My work connects physics at the smallest scales with some of the universe’s
+    largest explosions. I develop ways to capture collective neutrino
+    oscillations in modern hydrodynamical simulations, then follow their impact
+    on the matter that becomes new elements.
+  </p>
+</div>
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+<div class="research-grid">
+  <article class="research-card" data-reveal>
+    <span class="research-card__index">01</span>
+    <h3>Neutrino flavor</h3>
+    <p>
+      Investigating flavor instabilities in dense neutrino gases and building
+      practical approximations for collective oscillations.
+    </p>
+  </article>
+  <article class="research-card" data-reveal>
+    <span class="research-card__index">02</span>
+    <h3>Stellar explosions</h3>
+    <p>
+      Studying how general relativity, supernova dynamics, and neutrino heating
+      alter the environments where matter is forged.
+    </p>
+  </article>
+  <article class="research-card" data-reveal>
+    <span class="research-card__index">03</span>
+    <h3>Element formation</h3>
+    <p>
+      Tracing the production of rare proton-rich isotopes, including molybdenum,
+      ruthenium, and niobium, back to their astrophysical origins.
+    </p>
+  </article>
+</div>
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
+<div class="science-story" data-reveal>
+  <figure class="science-story__visual science-story__visual--supernova">
+    <img
+      src="{{ '/assets/img/SN.jpg' | relative_url }}"
+      alt="Illustration of a massive star progressing toward a core-collapse supernova"
+      loading="lazy"
+    >
+    <figcaption>
+      <span>01 / Collapse</span>
+      A massive star’s core collapses, producing an immense flux of neutrinos.
+    </figcaption>
+  </figure>
+  <div class="science-story__connector" aria-hidden="true">
+    <span></span>
+    <i class="fa-solid fa-arrow-right-long"></i>
+  </div>
+  <figure class="science-story__visual science-story__visual--elements">
+    <img
+      src="{{ '/assets/img/periodic_table.jpg' | relative_url }}"
+      alt="Periodic table showing the astrophysical origins of the chemical elements"
+      loading="lazy"
+    >
+    <figcaption>
+      <span>02 / Creation</span>
+      The explosion’s conditions determine which rare elements can form.
+    </figcaption>
+  </figure>
+</div>
 
-I am **Postdoctoral Fellow** at the University of California, Berkeley, and a Visiting Scholar at Fuller Lab, UC San Diego. I earned my PhD in Physics from the University of Copenhagen in October 2022.
-
-*I aim to uncover the role of neutrinos--fundamental particles--in supernova explosions.* 
-
-My research focuses on neutrino flavor conversion and heavy-element nucleosynthesis in dense astrophysical environments. I am interested in approximating the effects of collective neutrino oscillations in state-of-the-art hydrodynamical simulations and studying the conditions and outcomes of heavy-element nucleosynthesis. At SLAC/Stanford, I investigated how elements heavier than iron—such as Molybdenum-92,94, Ruthenium-96,98, and Niobium-92—are produced, and how general relativistic effects, supernova dynamics, and neutrino heating influence this process. Currently at UC San Diego, I investigate flavor instabilities in dense neutrino gases and the role of neutrino oscillations in the synthesis of important proton-rich isotopes in the universe.
-
-<!-- ![The core of a massive star (M > 8 solar masses) collapses. The implosion triggers a core-collapse supernova explosion. Neutrinos of all flavors are produced in huge quantities](assets/img/KeplerSN1604.jpg) -->
-
-<p align="center">
-  <img src="assets/img/SN.jpg" width="280">
-  <img src="assets/img/periodic_table.jpg" width="340"><br>
-  <sub><em>
-  Left: The core of a massive star collapses, triggering a core-collapse supernova explosion where neutrinos of all flavors are produced in huge quantities. Image from 
-  <a href="https://earthspacecircle.blogspot.com/2013/07/stellar-evolution.html">earthspacecircle</a>. 
-  Right: The origin of many isotopes in the solar system remains unknown; environments such as supernovae and neutron star mergers are promising sites for heavy-element synthesis, where neutrinos can alter the conditions under which elements are created. Image from 
-  <a href="https://ccapp.osu.edu/news/chemical-history-universe">CCAPP</a>.
-  </em></sub>
+<p class="source-note" data-reveal>
+  Visual sources:
+  <a href="https://earthspacecircle.blogspot.com/2013/07/stellar-evolution.html">Earth Space Circle</a>
+  and
+  <a href="https://ccapp.osu.edu/news/chemical-history-universe">CCAPP at Ohio State</a>.
 </p>

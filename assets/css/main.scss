@@ -37,3 +37,6 @@
 @use "font-awesome/brands";
 @use "font-awesome/solid";
 @use "font-awesome/regular";
+
+// Personal visual layer; loaded last so it can refine the base theme.
+@use "futuristic";

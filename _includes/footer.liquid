@@ -1,14 +1,20 @@
 {% capture footer_contents %}
-  &copy; Copyright {{ site.time | date: '%Y' }}
-  {{ site.first_name }}
-  {{ site.middle_name }}
-  {{ site.last_name }}. {{ site.footer_text }}
-  {% if site.impressum_path %}
-    <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
-  {% endif %}
-  {% if site.last_updated %}
-    Last updated: {{ 'now' | date: '%B %d, %Y' }}.
-  {% endif %}
+  <div class="footer-identity">
+    <span class="brand-mark" aria-hidden="true">IPG</span>
+    <span>
+      <strong>{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}</strong>
+      <small>{{ site.footer_text }}</small>
+    </span>
+  </div>
+  <div class="footer-meta">
+    <span>&copy; {{ site.time | date: '%Y' }}</span>
+    {% if site.last_updated %}
+      <span>Updated {{ 'now' | date: '%b %Y' }}</span>
+    {% endif %}
+    {% if site.impressum_path %}
+      <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>
+    {% endif %}
+  </div>
 {% endcapture %}
 
 {% if site.footer_fixed %}
