@@ -36,8 +36,25 @@
   if (!prefersReducedMotion) {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d", { alpha: true });
-    const symbols = ["-", "/", "|", "+", "·"];
+    const particleLabels = [
+      { base: "ν", script: "e", scriptPosition: "subscript" },
+      { base: "ν", script: "μ", scriptPosition: "subscript" },
+      { base: "ν", script: "τ", scriptPosition: "subscript" },
+      { base: "e", script: "−", scriptPosition: "superscript" },
+      { base: "e", script: "+", scriptPosition: "superscript" },
+      { base: "γ" },
+      { base: "W", script: "−", scriptPosition: "superscript" },
+      { base: "W", script: "+", scriptPosition: "superscript" },
+      { base: "W", script: "0", scriptPosition: "superscript" },
+      { base: "Z", script: "0", scriptPosition: "superscript" },
+      { base: "H" },
+      { base: "τ", script: "−", scriptPosition: "superscript" },
+      { base: "τ", script: "+", scriptPosition: "superscript" },
+      { base: "μ", script: "−", scriptPosition: "superscript" },
+      { base: "μ", script: "+", scriptPosition: "superscript" },
+    ];
     const particles = [];
+    const supernovae = [];
 
     canvas.className = "symbol-field";
     canvas.setAttribute("aria-hidden", "true");
@@ -52,13 +69,14 @@
     let lastFrame = performance.now();
     let lastPointerEmission = 0;
     let accentColor = getComputedStyle(root).getPropertyValue("--site-accent").trim();
+    let supernovaColor = root.dataset.theme === "dark" ? "255, 176, 112" : "214, 91, 47";
 
     const randomBetween = (minimum, maximum) => minimum + Math.random() * (maximum - minimum);
-    const randomSymbol = () => symbols[Math.floor(Math.random() * symbols.length)];
+    const randomParticleLabel = () => particleLabels[Math.floor(Math.random() * particleLabels.length)];
 
     const createAmbientParticle = () => ({
       type: "ambient",
-      symbol: randomSymbol(),
+      label: randomParticleLabel(),
       x: Math.random() * viewportWidth,
       y: Math.random() * viewportHeight,
       velocityX: randomBetween(-0.014, 0.014),
@@ -76,7 +94,7 @@
 
       return {
         type: "pointer",
-        symbol: randomSymbol(),
+        label: randomParticleLabel(),
         x: pointerX + Math.cos(angle) * radius,
         y: pointerY + Math.sin(angle) * radius,
         velocityX: Math.cos(angle) * 0.018 - Math.sin(angle) * orbitSpeed,
@@ -88,13 +106,34 @@
       };
     };
 
+    const createSupernova = (staggered = false) => {
+      const lifetime = randomBetween(7000, 11000);
+
+      return {
+        x: randomBetween(0.08, 0.92) * viewportWidth,
+        y: randomBetween(0.08, 0.92) * viewportHeight,
+        age: staggered ? randomBetween(0, lifetime * 0.92) : 0,
+        lifetime,
+        maxRadius: randomBetween(38, 76),
+        rotation: randomBetween(0, Math.PI * 2),
+        rayLengths: Array.from({ length: 12 }, () => randomBetween(0.72, 1.28)),
+      };
+    };
+
     const ambientParticleTarget = () => Math.min(48, Math.max(22, Math.round((viewportWidth * viewportHeight) / 32000)));
+    const supernovaTarget = () => (viewportWidth < 700 ? 2 : 4);
 
     const fillAmbientField = () => {
       const ambientCount = particles.filter((particle) => particle.type === "ambient").length;
 
       for (let index = ambientCount; index < ambientParticleTarget(); index += 1) {
         particles.push(createAmbientParticle());
+      }
+    };
+
+    const fillSupernovaField = (staggered = false) => {
+      for (let index = supernovae.length; index < supernovaTarget(); index += 1) {
+        supernovae.push(createSupernova(staggered));
       }
     };
 
@@ -106,18 +145,84 @@
       canvas.height = Math.round(viewportHeight * pixelRatio);
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       fillAmbientField();
+      fillSupernovaField(supernovae.length === 0);
     };
 
     const drawParticle = (particle, opacity) => {
       context.save();
       context.globalAlpha = opacity;
       context.fillStyle = accentColor;
-      context.font = `500 ${particle.size}px "Space Grotesk", monospace`;
-      context.textAlign = "center";
+      context.textAlign = "left";
       context.textBaseline = "middle";
       context.translate(particle.x, particle.y);
       context.rotate(particle.rotation);
-      context.fillText(particle.symbol, 0, 0);
+
+      const mathFont = '"STIX Two Math", "Cambria Math", "Times New Roman", serif';
+      const scriptSize = particle.size * 0.58;
+      context.font = `italic 500 ${particle.size}px ${mathFont}`;
+      const baseWidth = context.measureText(particle.label.base).width;
+      let scriptWidth = 0;
+
+      if (particle.label.script) {
+        context.font = `500 ${scriptSize}px ${mathFont}`;
+        scriptWidth = context.measureText(particle.label.script).width;
+      }
+
+      const startX = -(baseWidth + scriptWidth) / 2;
+      context.font = `italic 500 ${particle.size}px ${mathFont}`;
+      context.fillText(particle.label.base, startX, 0);
+
+      if (particle.label.script) {
+        const scriptY = particle.label.scriptPosition === "subscript" ? particle.size * 0.34 : particle.size * -0.36;
+        context.font = `500 ${scriptSize}px ${mathFont}`;
+        context.fillText(particle.label.script, startX + baseWidth, scriptY);
+      }
+
+      context.restore();
+    };
+
+    const drawSupernova = (supernova) => {
+      const progress = supernova.age / supernova.lifetime;
+      const glow = Math.sin(progress * Math.PI);
+      const radius = 8 + supernova.maxRadius * progress;
+
+      context.save();
+      context.translate(supernova.x, supernova.y);
+      context.rotate(supernova.rotation + progress * 0.35);
+
+      const gradient = context.createRadialGradient(0, 0, 0, 0, 0, radius);
+      gradient.addColorStop(0, `rgba(${supernovaColor}, ${0.42 * glow})`);
+      gradient.addColorStop(0.18, `rgba(${supernovaColor}, ${0.2 * glow})`);
+      gradient.addColorStop(0.55, `rgba(${supernovaColor}, ${0.07 * glow})`);
+      gradient.addColorStop(1, `rgba(${supernovaColor}, 0)`);
+      context.fillStyle = gradient;
+      context.beginPath();
+      context.arc(0, 0, radius, 0, Math.PI * 2);
+      context.fill();
+
+      context.globalAlpha = glow * 0.18;
+      context.strokeStyle = `rgb(${supernovaColor})`;
+      context.lineWidth = 0.75;
+      context.beginPath();
+      context.arc(0, 0, radius * 0.62, 0, Math.PI * 2);
+      context.stroke();
+
+      context.globalAlpha = glow * 0.14;
+      supernova.rayLengths.forEach((rayLength, index) => {
+        const angle = (index / supernova.rayLengths.length) * Math.PI * 2;
+        const innerRadius = radius * 0.22;
+        const outerRadius = radius * rayLength;
+        context.beginPath();
+        context.moveTo(Math.cos(angle) * innerRadius, Math.sin(angle) * innerRadius);
+        context.lineTo(Math.cos(angle) * outerRadius, Math.sin(angle) * outerRadius);
+        context.stroke();
+      });
+
+      context.globalAlpha = glow * 0.5;
+      context.fillStyle = `rgb(${supernovaColor})`;
+      context.beginPath();
+      context.arc(0, 0, Math.max(1, radius * 0.035), 0, Math.PI * 2);
+      context.fill();
       context.restore();
     };
 
@@ -125,6 +230,18 @@
       const elapsed = Math.min(time - lastFrame, 32);
       lastFrame = time;
       context.clearRect(0, 0, viewportWidth, viewportHeight);
+
+      for (let index = supernovae.length - 1; index >= 0; index -= 1) {
+        const supernova = supernovae[index];
+        supernova.age += elapsed;
+
+        if (supernova.age >= supernova.lifetime) {
+          supernovae.splice(index, 1);
+          continue;
+        }
+
+        drawSupernova(supernova);
+      }
 
       if (pointerSeen && time - lastPointerEmission > 95 && particles.length < 90) {
         particles.push(createPointerParticle());
@@ -162,6 +279,7 @@
       }
 
       fillAmbientField();
+      fillSupernovaField();
       window.requestAnimationFrame(animateSymbolField);
     };
 
@@ -183,6 +301,7 @@
 
     const themeObserver = new MutationObserver(() => {
       accentColor = getComputedStyle(root).getPropertyValue("--site-accent").trim();
+      supernovaColor = root.dataset.theme === "dark" ? "255, 176, 112" : "214, 91, 47";
     });
 
     themeObserver.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
