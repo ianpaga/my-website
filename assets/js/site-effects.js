@@ -19,7 +19,7 @@
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -48px" },
+      { threshold: 0.12, rootMargin: "0px 0px -48px" }
     );
 
     revealElements.forEach((element) => revealObserver.observe(element));
@@ -33,7 +33,7 @@
 
   const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
-  if (!prefersReducedMotion && hasFinePointer) {
+  if (!prefersReducedMotion) {
     const ambient = document.createElement("div");
     ambient.className = "cursor-ambient";
     ambient.setAttribute("aria-hidden", "true");
@@ -68,7 +68,7 @@
           ambientFrame = window.requestAnimationFrame(renderAmbient);
         }
       },
-      { passive: true },
+      { passive: true }
     );
   }
 
