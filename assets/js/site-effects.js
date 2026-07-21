@@ -263,6 +263,85 @@
       context.restore();
     };
 
+    const drawParticleState = (particle) => {
+      if (!particle.previousLabel) {
+        drawParticle(particle, particle.renderOpacity);
+        return;
+      }
+
+      const transitionProgress = Math.min(1, particle.transitionAge / particle.transitionDuration);
+      drawParticle(particle, particle.renderOpacity * (1 - transitionProgress), particle.previousLabel);
+      drawParticle(particle, particle.renderOpacity * transitionProgress);
+
+      if (transitionProgress >= 1) particle.previousLabel = null;
+    };
+
+    const drawNeutrinoNetwork = (time) => {
+      const neutrinos = particles.filter(
+        (particle) =>
+          particle.isNeutrino &&
+          particle.renderOpacity > 0.05 &&
+          particle.x > -40 &&
+          particle.x < viewportWidth + 40 &&
+          particle.y > -40 &&
+          particle.y < viewportHeight + 40
+      );
+      const connectionDistance = viewportWidth < 700 ? 132 : 178;
+      const connectionDistanceSquared = connectionDistance * connectionDistance;
+      const connectionLimit = viewportWidth < 700 ? 12 : 28;
+      const connectionsPerNode = viewportWidth < 700 ? 2 : 3;
+      const connectionCounts = new Array(neutrinos.length).fill(0);
+      const candidates = [];
+
+      for (let firstIndex = 0; firstIndex < neutrinos.length; firstIndex += 1) {
+        for (let secondIndex = firstIndex + 1; secondIndex < neutrinos.length; secondIndex += 1) {
+          const deltaX = neutrinos[secondIndex].x - neutrinos[firstIndex].x;
+          const deltaY = neutrinos[secondIndex].y - neutrinos[firstIndex].y;
+          const distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+          if (distanceSquared < connectionDistanceSquared) {
+            candidates.push({ firstIndex, secondIndex, distance: Math.sqrt(distanceSquared) });
+          }
+        }
+      }
+
+      candidates.sort((first, second) => first.distance - second.distance);
+
+      context.save();
+      context.lineCap = "round";
+
+      let connectionsDrawn = 0;
+
+      for (const candidate of candidates) {
+        if (connectionsDrawn >= connectionLimit) break;
+        if (connectionCounts[candidate.firstIndex] >= connectionsPerNode || connectionCounts[candidate.secondIndex] >= connectionsPerNode) continue;
+
+        const firstParticle = neutrinos[candidate.firstIndex];
+        const secondParticle = neutrinos[candidate.secondIndex];
+        const proximity = 1 - candidate.distance / connectionDistance;
+        const pulse = 0.78 + Math.sin(time * 0.0022 + candidate.firstIndex * 0.9 + candidate.secondIndex * 0.55) * 0.22;
+        const lifeOpacity = Math.min(firstParticle.renderOpacity, secondParticle.renderOpacity);
+        const themeOpacity = colorMode === "dark" ? 0.34 : 0.25;
+        const gradient = context.createLinearGradient(firstParticle.x, firstParticle.y, secondParticle.x, secondParticle.y);
+
+        gradient.addColorStop(0, particlePalettes[colorMode][firstParticle.label.color]);
+        gradient.addColorStop(1, particlePalettes[colorMode][secondParticle.label.color]);
+        context.globalAlpha = Math.pow(proximity, 0.72) * lifeOpacity * pulse * themeOpacity;
+        context.strokeStyle = gradient;
+        context.lineWidth = 0.55 + proximity * 0.75;
+        context.beginPath();
+        context.moveTo(firstParticle.x, firstParticle.y);
+        context.lineTo(secondParticle.x, secondParticle.y);
+        context.stroke();
+
+        connectionCounts[candidate.firstIndex] += 1;
+        connectionCounts[candidate.secondIndex] += 1;
+        connectionsDrawn += 1;
+      }
+
+      context.restore();
+    };
+
     const drawSupernova = (supernova) => {
       const progress = supernova.age / supernova.lifetime;
       const bloom = Math.sin(progress * Math.PI);
@@ -396,20 +475,13 @@
 
         const fadeIn = Math.min(1, progress / 0.12);
         const fadeOut = Math.pow(1 - progress, 0.82);
-        const opacity = fadeIn * fadeOut * particle.opacity;
+        particle.renderOpacity = fadeIn * fadeOut * particle.opacity;
 
-        if (particle.previousLabel) {
-          particle.transitionAge += elapsed;
-          const transitionProgress = Math.min(1, particle.transitionAge / particle.transitionDuration);
-          drawParticle(particle, opacity * (1 - transitionProgress), particle.previousLabel);
-          drawParticle(particle, opacity * transitionProgress);
-
-          if (transitionProgress >= 1) particle.previousLabel = null;
-        } else {
-          drawParticle(particle, opacity);
-        }
+        if (particle.previousLabel) particle.transitionAge += elapsed;
       }
 
+      drawNeutrinoNetwork(time);
+      particles.forEach(drawParticleState);
       fillSupernovaField();
       window.requestAnimationFrame(animateSymbolField);
     };
