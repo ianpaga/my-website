@@ -160,7 +160,7 @@
         transitionAge: 0,
         transitionDuration: 190,
         age: 0,
-        lifetime: randomBetween(3400, 5600),
+        lifetime: isNeutrino ? randomBetween(6800, 11200) : randomBetween(3400, 5600),
         size: isNeutrino ? randomBetween(15, 20) : randomBetween(12, 18),
         rotation: isNeutrino ? randomBetween(-0.08, 0.08) : angle + randomBetween(-0.18, 0.18),
         opacity: isNeutrino ? randomBetween(0.78, 0.96) : randomBetween(0.58, 0.84),
@@ -319,19 +319,28 @@
         const firstParticle = neutrinos[candidate.firstIndex];
         const secondParticle = neutrinos[candidate.secondIndex];
         const proximity = 1 - candidate.distance / connectionDistance;
-        const pulse = 0.78 + Math.sin(time * 0.0022 + candidate.firstIndex * 0.9 + candidate.secondIndex * 0.55) * 0.22;
+        const pulse = 0.92 + Math.sin(time * 0.0022 + candidate.firstIndex * 0.9 + candidate.secondIndex * 0.55) * 0.08;
         const lifeOpacity = Math.min(firstParticle.renderOpacity, secondParticle.renderOpacity);
-        const themeOpacity = colorMode === "dark" ? 0.34 : 0.25;
+        const themeOpacity = colorMode === "dark" ? 0.92 : 0.72;
+        const linkOpacity = Math.pow(proximity, 0.35) * lifeOpacity * pulse * themeOpacity;
         const gradient = context.createLinearGradient(firstParticle.x, firstParticle.y, secondParticle.x, secondParticle.y);
 
         gradient.addColorStop(0, particlePalettes[colorMode][firstParticle.label.color]);
         gradient.addColorStop(1, particlePalettes[colorMode][secondParticle.label.color]);
-        context.globalAlpha = Math.pow(proximity, 0.72) * lifeOpacity * pulse * themeOpacity;
         context.strokeStyle = gradient;
-        context.lineWidth = 0.55 + proximity * 0.75;
         context.beginPath();
         context.moveTo(firstParticle.x, firstParticle.y);
         context.lineTo(secondParticle.x, secondParticle.y);
+
+        context.globalAlpha = linkOpacity * 0.42;
+        context.lineWidth = 4 + proximity * 2.5;
+        context.shadowColor = particlePalettes[colorMode][firstParticle.label.color];
+        context.shadowBlur = 7;
+        context.stroke();
+
+        context.globalAlpha = linkOpacity;
+        context.lineWidth = 1.5 + proximity * 1.8;
+        context.shadowBlur = 0;
         context.stroke();
 
         connectionCounts[candidate.firstIndex] += 1;
