@@ -5,8 +5,22 @@ metrics:
     citations: 331
     url: https://scholar.google.com/citations?user=DWE-zkEAAAAJ&hl=en
   inspirehep:
+    articles: 13
     citations: 331
     url: https://inspirehep.net/authors/1767008
+    venues:
+      - count: 4
+        name: JCAP
+      - count: 3
+        name: arXiv preprints
+      - count: 3
+        name: Physical Review D
+      - count: 1
+        name: JHEP
+      - count: 1
+        name: "Journal of Physics: Conference Series"
+      - count: 1
+        name: Physical Review Letters
 papers:
   DWE-zkEAAAAJ:2osOgNQ5qMEC:
     citations: 16

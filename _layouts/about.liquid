@@ -16,11 +16,19 @@ layout: default
         <a class="button button--secondary" href="{{ '/cv/' | relative_url }}">Academic CV</a>
       </div>
 
-      <div class="affiliation-row" aria-label="Current affiliations">
-        <span>Currently at</span>
-        <a href="https://www.berkeley.edu">UC Berkeley</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://ucsd.edu">UC San Diego</a>
+      <div class="affiliation-history">
+        <div class="affiliation-row" aria-label="Current affiliations">
+          <span>Currently at</span>
+          <a href="https://www.berkeley.edu">UC Berkeley</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://ucsd.edu">UC San Diego</a>
+        </div>
+        <div class="affiliation-row affiliation-row--previous" aria-label="Previous affiliations">
+          <span>Before</span>
+          <a href="https://www.stanford.edu">Stanford University</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://www6.slac.stanford.edu">SLAC National Accelerator Laboratory</a>
+        </div>
       </div>
     </div>
 
@@ -44,44 +52,69 @@ layout: default
     </div>
   </section>
 
+  <section class="home-section home-section--research" aria-labelledby="research-heading">
+    <h2 id="research-heading" class="sr-only">Research overview</h2>
+    {{ content }}
+  </section>
+
   {% if site.data.citations.metrics %}
+    {% assign scholar_metric = site.data.citations.metrics.google_scholar %}
+    {% assign inspire_metric = site.data.citations.metrics.inspirehep %}
     <section class="citation-metrics" aria-labelledby="citation-metrics-heading" data-reveal>
       <div class="citation-metrics__intro">
         <p class="section-label">Research impact</p>
         <h2 id="citation-metrics-heading">Citation metrics</h2>
       </div>
-      <div class="citation-metrics__list">
-        {% assign scholar_metric = site.data.citations.metrics.google_scholar %}
-        {% if scholar_metric %}
-          <a class="citation-metric" href="{{ scholar_metric.url }}" aria-label="View Google Scholar profile">
-            <span class="citation-metric__source">
-              <i class="ai ai-google-scholar" aria-hidden="true"></i>
-              Google Scholar
-            </span>
-            <strong>{{ scholar_metric.citations }}</strong>
-            <span>Citations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-          </a>
+      <div class="citation-metrics__content">
+        <div class="citation-metrics__list">
+          {% if scholar_metric %}
+            <a class="citation-metric" href="{{ scholar_metric.url }}" aria-label="View Google Scholar profile">
+              <span class="citation-metric__source">
+                <i class="ai ai-google-scholar" aria-hidden="true"></i>
+                Google Scholar
+              </span>
+              <strong>{{ scholar_metric.citations }}</strong>
+              <span>Citations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+            </a>
+          {% endif %}
+
+          {% if inspire_metric %}
+            <a class="citation-metric" href="{{ inspire_metric.url }}" aria-label="View INSPIRE profile">
+              <span class="citation-metric__source"><i class="ai ai-inspire" aria-hidden="true"></i> INSPIRE</span>
+              <strong>{{ inspire_metric.citations }}</strong>
+              <span>Citations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+            </a>
+          {% endif %}
+
+          {% if inspire_metric.articles %}
+            <a class="citation-metric" href="{{ '/publications/' | relative_url }}" aria-label="View publications">
+              <span class="citation-metric__source"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Research output</span>
+              <strong>{{ inspire_metric.articles }}</strong>
+              <span>Articles <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></span>
+            </a>
+          {% endif %}
+        </div>
+
+        {% if inspire_metric.venues %}
+          <div class="publication-venues" aria-label="Publication venues">
+            <span>Venues</span>
+            <ul>
+              {% for venue in inspire_metric.venues %}
+                <li>
+                  {{ venue.name }}
+                  <strong>{{ venue.count }}</strong>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         {% endif %}
 
-        {% assign inspire_metric = site.data.citations.metrics.inspirehep %}
-        {% if inspire_metric %}
-          <a class="citation-metric" href="{{ inspire_metric.url }}" aria-label="View INSPIRE profile">
-            <span class="citation-metric__source"><i class="ai ai-inspire" aria-hidden="true"></i> INSPIRE</span>
-            <strong>{{ inspire_metric.citations }}</strong>
-            <span>Citations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
-          </a>
+        {% if site.data.citations.metadata.last_updated %}
+          <p class="citation-metrics__updated">Updated {{ site.data.citations.metadata.last_updated | date: '%B %-d, %Y' }}</p>
         {% endif %}
       </div>
-      {% if site.data.citations.metadata.last_updated %}
-        <p class="citation-metrics__updated">Updated {{ site.data.citations.metadata.last_updated | date: '%B %-d, %Y' }}</p>
-      {% endif %}
     </section>
   {% endif %}
-
-  <section class="home-section home-section--research" aria-labelledby="research-heading">
-    <h2 id="research-heading" class="sr-only">Research overview</h2>
-    {{ content }}
-  </section>
 
   {% if page.announcements and page.announcements.enabled %}
     <section class="home-section home-section--news" data-reveal>
@@ -93,6 +126,21 @@ layout: default
         <a href="{{ '/news/' | relative_url }}">View all</a>
       </div>
       {% include news.liquid limit=true %}
+      <aside class="linkedin-update" aria-labelledby="linkedin-update-heading">
+        <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+        <div>
+          <p class="section-label">Latest on LinkedIn</p>
+          <h3 id="linkedin-update-heading">Research notes and professional updates</h3>
+          <p>Follow my latest work, talks, publications, and career updates on LinkedIn.</p>
+        </div>
+        <a
+          class="button button--secondary"
+          href="https://www.linkedin.com/in/ian-padilla-gay-2b0b0090/recent-activity/all/"
+        >
+          View latest post
+          <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
+      </aside>
     </section>
   {% endif %}
 
@@ -120,6 +168,10 @@ layout: default
         <a class="button button--primary" href="mailto:{{ site.data.socials.email }}">
           Send an email
           <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+        </a>
+        <a class="button button--secondary" href="https://github.com/ianpaga">
+          GitHub
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
         </a>
         <div class="contact-icons">{% social_links %}</div>
       </div>

@@ -104,18 +104,46 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
     query = urlencode({"q": f"a {bai}", "size": 250})
     next_url = f"https://inspirehep.net/api/literature?{query}"
     citations = 0
+    article_count = 0
+    venue_counts = {}
+    venue_names = {
+        "J.Phys.Conf.Ser.": "Journal of Physics: Conference Series",
+        "Phys.Rev.D": "Physical Review D",
+        "Phys.Rev.Lett.": "Physical Review Letters",
+    }
     while next_url:
         literature_data = fetch_json(next_url)
-        citations += sum(
-            int(record.get("metadata", {}).get("citation_count", 0))
-            for record in literature_data.get("hits", {}).get("hits", [])
-        )
+        for record in literature_data.get("hits", {}).get("hits", []):
+            metadata = record.get("metadata", {})
+            citations += int(metadata.get("citation_count", 0))
+
+            document_types = metadata.get("document_type", [])
+            if not {"article", "conference paper"}.intersection(document_types):
+                continue
+
+            article_count += 1
+            publication_info = metadata.get("publication_info", [])
+            journal = publication_info[0].get("journal_title") if publication_info else None
+            if not metadata.get("dois") or not journal:
+                venue = "arXiv preprints"
+            else:
+                venue = venue_names.get(journal, journal)
+            venue_counts[venue] = venue_counts.get(venue, 0) + 1
+
         next_url = literature_data.get("links", {}).get("next")
 
-    print(f"INSPIRE total: {citations}")
+    venues = [
+        {"name": name, "count": count}
+        for name, count in sorted(
+            venue_counts.items(), key=lambda item: (-item[1], item[0].lower())
+        )
+    ]
+    print(f"INSPIRE total: {citations} citations across {article_count} articles")
     return {
+        "articles": article_count,
         "citations": citations,
         "url": f"https://inspirehep.net/authors/{inspirehep_id}",
+        "venues": venues,
     }
 
 
