@@ -29,6 +29,13 @@ metrics:
     url: https://scholar.google.com/citations?user=DWE-zkEAAAAJ&hl=en
   inspirehep:
     articles: 13
+    arxiv_categories:
+      - count: 8
+        name: astro-ph
+      - count: 4
+        name: hep-ph
+    arxiv_submissions: 12
+    arxiv_url: https://arxiv.org/search/?searchtype=author&query=Padilla-Gay%2C+I
     citations: 331
     h_index: 8
     url: https://inspirehep.net/authors/1767008

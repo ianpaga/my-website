@@ -139,33 +139,43 @@ layout: default
         {% if scholar_metric.citations_per_year %}
           {% assign first_citation_year = scholar_metric.citations_per_year | first %}
           {% assign last_citation_year = scholar_metric.citations_per_year | last %}
-          {% assign citation_midpoint = scholar_metric.citation_peak | divided_by: 2 %}
-          <div class="citation-history">
-            <div class="citation-history__heading">
+          <div class="impact-chart citation-history">
+            <div class="impact-chart__heading">
               <span>Annual citations</span>
               <span>Google Scholar</span>
             </div>
             <div
-              class="citation-history__plot"
+              class="impact-chart__canvas-wrap"
               role="img"
               aria-label="Google Scholar citations received each year from {{ first_citation_year.year }} to {{ last_citation_year.year }}"
             >
-              <div class="citation-history__axis" aria-hidden="true">
-                <span>{{ scholar_metric.citation_peak }}</span>
-                <span>{{ citation_midpoint }}</span>
-                <span>0</span>
-              </div>
-              <ol>
+              <canvas class="impact-chart__canvas citation-history__canvas" data-impact-chart="citations" aria-hidden="true"></canvas>
+              <ol class="sr-only" data-chart-series="citations">
                 {% for year in scholar_metric.citations_per_year %}
-                  <li aria-label="{{ year.year }}: {{ year.citations }} citations">
-                    <div class="citation-history__bar-area" style="--bar-height: {{ year.percent }}%">
-                      <span class="citation-history__value">{{ year.citations }}</span>
-                      <span class="citation-history__bar" aria-hidden="true"></span>
-                    </div>
-                    <span class="citation-history__year">{{ year.year }}</span>
-                  </li>
+                  <li data-year="{{ year.year }}" data-value="{{ year.citations }}">{{ year.year }}: {{ year.citations }} citations</li>
                 {% endfor %}
               </ol>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if inspire_metric.arxiv_categories %}
+          <div class="impact-chart arxiv-categories">
+            <div class="impact-chart__heading">
+              <span>Primary arXiv categories</span>
+              <a href="{{ inspire_metric.arxiv_url }}">{{ inspire_metric.arxiv_submissions }} submissions</a>
+            </div>
+            <div
+              class="impact-chart__canvas-wrap"
+              role="img"
+              aria-label="Primary arXiv category distribution across {{ inspire_metric.arxiv_submissions }} submissions"
+            >
+              <canvas class="impact-chart__canvas arxiv-categories__canvas" data-impact-chart="categories" aria-hidden="true"></canvas>
+              <ul class="sr-only" data-chart-series="categories">
+                {% for category in inspire_metric.arxiv_categories %}
+                  <li data-category="{{ category.name }}" data-value="{{ category.count }}">{{ category.name }}: {{ category.count }} submissions</li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
         {% endif %}

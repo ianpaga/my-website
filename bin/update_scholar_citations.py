@@ -123,6 +123,7 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
     citations = 0
     citation_counts = []
     article_count = 0
+    arxiv_category_counts = {}
     venue_counts = {}
     venue_names = {
         "J.Phys.Conf.Ser.": "Journal of Physics: Conference Series",
@@ -136,6 +137,15 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
             citation_count = int(metadata.get("citation_count", 0))
             citations += citation_count
             citation_counts.append(citation_count)
+
+            primary_category = metadata.get("primary_arxiv_category", [])
+            if isinstance(primary_category, list):
+                primary_category = primary_category[0] if primary_category else None
+            if primary_category:
+                category = primary_category.split(".", maxsplit=1)[0]
+                arxiv_category_counts[category] = (
+                    arxiv_category_counts.get(category, 0) + 1
+                )
 
             document_types = metadata.get("document_type", [])
             if not {"article", "conference paper"}.intersection(document_types):
@@ -158,6 +168,12 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
             venue_counts.items(), key=lambda item: (-item[1], item[0].lower())
         )
     ]
+    arxiv_categories = [
+        {"name": name, "count": count}
+        for name, count in sorted(
+            arxiv_category_counts.items(), key=lambda item: (-item[1], item[0])
+        )
+    ]
     h_index = sum(
         citation_count >= position
         for position, citation_count in enumerate(
@@ -170,6 +186,11 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
     )
     return {
         "articles": article_count,
+        "arxiv_categories": arxiv_categories,
+        "arxiv_submissions": sum(arxiv_category_counts.values()),
+        "arxiv_url": (
+            "https://arxiv.org/search/?searchtype=author&query=Padilla-Gay%2C+I"
+        ),
         "citations": citations,
         "h_index": h_index,
         "url": f"https://inspirehep.net/authors/{inspirehep_id}",
