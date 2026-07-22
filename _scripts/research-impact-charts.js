@@ -38,8 +38,8 @@ permalink: /assets/js/research-impact-charts.js
         const target = Number(number.textContent.replace(/[^0-9.-]/g, ""));
         if (!Number.isFinite(target)) return;
 
-        const delay = index * 80;
-        const duration = target < 20 ? 850 : 1150;
+        const delay = index * 110;
+        const duration = target < 20 ? 1400 : 1850;
         const startTime = performance.now() + delay;
         number.textContent = "0";
         number.classList.add("is-counting");
