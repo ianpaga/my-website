@@ -104,6 +104,7 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
     query = urlencode({"q": f"a {bai}", "size": 250})
     next_url = f"https://inspirehep.net/api/literature?{query}"
     citations = 0
+    citation_counts = []
     article_count = 0
     venue_counts = {}
     venue_names = {
@@ -115,7 +116,9 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
         literature_data = fetch_json(next_url)
         for record in literature_data.get("hits", {}).get("hits", []):
             metadata = record.get("metadata", {})
-            citations += int(metadata.get("citation_count", 0))
+            citation_count = int(metadata.get("citation_count", 0))
+            citations += citation_count
+            citation_counts.append(citation_count)
 
             document_types = metadata.get("document_type", [])
             if not {"article", "conference paper"}.intersection(document_types):
@@ -138,10 +141,20 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
             venue_counts.items(), key=lambda item: (-item[1], item[0].lower())
         )
     ]
-    print(f"INSPIRE total: {citations} citations across {article_count} articles")
+    h_index = sum(
+        citation_count >= position
+        for position, citation_count in enumerate(
+            sorted(citation_counts, reverse=True), start=1
+        )
+    )
+    print(
+        f"INSPIRE total: {citations} citations across {article_count} articles; "
+        f"h-index: {h_index}"
+    )
     return {
         "articles": article_count,
         "citations": citations,
+        "h_index": h_index,
         "url": f"https://inspirehep.net/authors/{inspirehep_id}",
         "venues": venues,
     }

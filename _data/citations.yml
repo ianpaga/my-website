@@ -7,6 +7,7 @@ metrics:
   inspirehep:
     articles: 13
     citations: 331
+    h_index: 8
     url: https://inspirehep.net/authors/1767008
     venues:
       - count: 4

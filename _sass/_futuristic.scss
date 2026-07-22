@@ -433,7 +433,7 @@ body > .container[role="main"] {
 
 .citation-metrics__list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .citation-metric {
@@ -1010,6 +1010,20 @@ footer.sticky-bottom .container {
 
   .research-hero__visual {
     width: min(76vw, 380px);
+  }
+
+  .citation-metrics {
+    align-items: start;
+    grid-template-columns: 1fr;
+  }
+
+  .citation-metrics__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .citation-metric {
+    padding-block: 1rem;
+    border-top: 1px solid var(--site-line);
   }
 
   .contact-panel {
