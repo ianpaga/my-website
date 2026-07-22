@@ -10,6 +10,8 @@
   --site-line: #dcdedb;
   --site-accent: #3454e8;
   --site-accent-hover: #203cc4;
+  --category-astro: #df7b22;
+  --category-hep: #c94242;
   --site-soft: #eceef9;
   --site-shadow: 0 18px 50px rgba(22, 26, 35, 0.1);
 
@@ -33,6 +35,8 @@ html[data-theme="dark"] {
   --site-line: #30343a;
   --site-accent: #7890ff;
   --site-accent-hover: #a2b1ff;
+  --category-astro: #f0a24a;
+  --category-hep: #ef6262;
   --site-soft: #1c223d;
   --site-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
 
@@ -493,9 +497,36 @@ body > .container[role="main"] {
 .citation-metric strong {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-variant-numeric: tabular-nums;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.06em;
+}
+
+.citation-metric strong.is-counting {
+  will-change: contents;
+}
+
+.citation-metric strong.is-counted {
+  animation: metric-number-arrive 320ms ease-out both;
+}
+
+@keyframes metric-number-arrive {
+  0% {
+    opacity: 0.72;
+    transform: translateY(0.12em);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .citation-metric strong.is-counted {
+    animation: none;
+  }
 }
 
 .citation-metric > span:last-child {
