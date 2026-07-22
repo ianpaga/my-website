@@ -1,6 +1,7 @@
 (function () {
   const chartCanvases = document.querySelectorAll("[data-impact-chart]");
-  if (!chartCanvases.length) return;
+  const metricNumbers = document.querySelectorAll(".citation-metric strong");
+  if (!chartCanvases.length && !metricNumbers.length) return;
 
   const renderers = [];
 
@@ -13,7 +14,64 @@
       line: color("--site-line", "#d9ddde"),
       muted: color("--site-muted", "#6f7779"),
       surface: color("--site-surface", "#ffffff"),
+      astro: color("--category-astro", "#df7b22"),
+      hep: color("--category-hep", "#c94242"),
     };
+  }
+
+  function initializeMetricCounters() {
+    if (!metricNumbers.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const formatter = new Intl.NumberFormat(document.documentElement.lang || "en");
+    const container = document.querySelector(".citation-metrics__list");
+    let hasAnimated = false;
+
+    const animate = () => {
+      if (hasAnimated) return;
+      hasAnimated = true;
+
+      metricNumbers.forEach((number, index) => {
+        const target = Number(number.textContent.replace(/[^0-9.-]/g, ""));
+        if (!Number.isFinite(target)) return;
+
+        const delay = index * 80;
+        const duration = target < 20 ? 850 : 1150;
+        const startTime = performance.now() + delay;
+        number.textContent = "0";
+        number.classList.add("is-counting");
+
+        const update = (currentTime) => {
+          const progress = Math.min(Math.max((currentTime - startTime) / duration, 0), 1);
+          const easedProgress = 1 - Math.pow(1 - progress, 4);
+          number.textContent = formatter.format(Math.round(target * easedProgress));
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            number.textContent = formatter.format(target);
+            number.classList.remove("is-counting");
+            number.classList.add("is-counted");
+          }
+        };
+
+        requestAnimationFrame(update);
+      });
+    };
+
+    if (!("IntersectionObserver" in window) || !container) {
+      animate();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        animate();
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(container);
   }
 
   function prepareCanvas(canvas) {
@@ -187,9 +245,12 @@
       context.textBaseline = "middle";
 
       data.forEach((item, index) => {
+        let categoryColor = palette.accent;
+        if (item.category.startsWith("astro-ph")) categoryColor = palette.astro;
+        if (item.category.startsWith("hep-ph")) categoryColor = palette.hep;
         const centerY = top + rowHeight * index + rowHeight / 2;
         const barHeight = Math.min(12, rowHeight * 0.42);
-        context.fillStyle = palette.muted;
+        context.fillStyle = categoryColor;
         context.textAlign = "right";
         context.fillText(item.category, left - 8, centerY);
 
@@ -202,7 +263,7 @@
 
         const barWidth = (item.value / peak) * plotWidth;
         roundedRectangle(context, left, centerY - barHeight / 2, barWidth, barHeight, barHeight / 2);
-        context.fillStyle = palette.accent;
+        context.fillStyle = categoryColor;
         context.fill();
 
         context.fillStyle = palette.ink;
@@ -218,6 +279,8 @@
     if (canvas.dataset.impactChart === "citations") initializeCitationChart(canvas);
     if (canvas.dataset.impactChart === "categories") initializeCategoryChart(canvas);
   });
+
+  initializeMetricCounters();
 
   const resizeObserver = new ResizeObserver(() => renderers.forEach((render) => render()));
   chartCanvases.forEach((canvas) => resizeObserver.observe(canvas));
