@@ -2,131 +2,171 @@
 
 import os
 import sys
-import yaml
 from datetime import datetime
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+
+import yaml
 from scholarly import scholarly
 
 
-def load_scholar_user_id() -> str:
-    """Load the Google Scholar user ID from the configuration file."""
-    config_file = "_data/socials.yml"
-    if not os.path.exists(config_file):
-        print(
-            f"Configuration file {config_file} not found. Please ensure the file exists and contains your Google Scholar user ID."
-        )
-        sys.exit(1)
+SOCIALS_FILE = "_data/socials.yml"
+OUTPUT_FILE = "_data/citations.yml"
+
+
+def load_social_ids() -> tuple[str, str]:
+    """Load the profile IDs used by the citation providers."""
+    if not os.path.exists(SOCIALS_FILE):
+        raise RuntimeError(f"Configuration file {SOCIALS_FILE} was not found.")
+
     try:
-        with open(config_file, "r") as f:
-            config = yaml.safe_load(f)
-        scholar_user_id = config.get("scholar_userid")
-        if not scholar_user_id:
-            print(
-                "No 'scholar_userid' found in the configuration file. Please add 'scholar_userid' to _data/socials.yml."
-            )
-            sys.exit(1)
-        return scholar_user_id
-    except yaml.YAMLError as e:
-        print(
-            f"Error parsing YAML file {config_file}: {e}. Please check the file for correct YAML syntax."
+        with open(SOCIALS_FILE, "r", encoding="utf-8") as file:
+            config = yaml.safe_load(file) or {}
+    except yaml.YAMLError as error:
+        raise RuntimeError(f"Could not parse {SOCIALS_FILE}: {error}") from error
+
+    scholar_user_id = config.get("scholar_userid")
+    inspirehep_id = config.get("inspirehep_id")
+    if not scholar_user_id or not inspirehep_id:
+        raise RuntimeError(
+            "Both 'scholar_userid' and 'inspirehep_id' must be set in "
+            f"{SOCIALS_FILE}."
         )
-        sys.exit(1)
+    return str(scholar_user_id), str(inspirehep_id)
 
 
-SCHOLAR_USER_ID: str = load_scholar_user_id()
-OUTPUT_FILE: str = "_data/citations.yml"
+def load_existing_data() -> dict:
+    """Read the current data so one provider can fail without losing data."""
+    if not os.path.exists(OUTPUT_FILE):
+        return {}
+
+    try:
+        with open(OUTPUT_FILE, "r", encoding="utf-8") as file:
+            return yaml.safe_load(file) or {}
+    except (OSError, yaml.YAMLError) as error:
+        print(f"Warning: Could not read {OUTPUT_FILE}: {error}")
+        return {}
 
 
-def get_scholar_citations() -> None:
-    """Fetch and update Google Scholar citation data."""
-    print(f"Fetching citations for Google Scholar ID: {SCHOLAR_USER_ID}")
-    today = datetime.now().strftime("%Y-%m-%d")
-
-    # Check if the output file was already updated today
-    if os.path.exists(OUTPUT_FILE):
-        try:
-            with open(OUTPUT_FILE, "r") as f:
-                existing_data = yaml.safe_load(f)
-            if (
-                existing_data
-                and "metadata" in existing_data
-                and "last_updated" in existing_data["metadata"]
-            ):
-                print(f"Last updated on: {existing_data['metadata']['last_updated']}")
-                if existing_data["metadata"]["last_updated"] == today:
-                    print("Citations data is already up-to-date. Skipping fetch.")
-                    return
-        except Exception as e:
-            print(
-                f"Warning: Could not read existing citation data from {OUTPUT_FILE}: {e}. The file may be missing or corrupted."
-            )
-
-    citation_data = {"metadata": {"last_updated": today}, "papers": {}}
-
+def fetch_google_scholar(scholar_user_id: str) -> tuple[dict, dict]:
+    """Return the Google Scholar profile metric and per-paper citations."""
+    print(f"Fetching Google Scholar profile: {scholar_user_id}")
     scholarly.set_timeout(15)
     scholarly.set_retries(3)
+    author = scholarly.search_author_id(scholar_user_id)
+    author_data = scholarly.fill(author)
+
+    if not author_data or "publications" not in author_data:
+        raise RuntimeError("Google Scholar returned no publications.")
+
+    profile = {
+        "citations": int(author_data.get("citedby", 0)),
+        "url": f"https://scholar.google.com/citations?user={scholar_user_id}&hl=en",
+    }
+    papers = {}
+    for publication in author_data["publications"]:
+        publication_id = publication.get("pub_id") or publication.get("author_pub_id")
+        if not publication_id:
+            title = publication.get("bib", {}).get("title", "Unknown title")
+            print(f"Warning: Skipping Scholar publication without an ID: {title}")
+            continue
+
+        bibliography = publication.get("bib", {})
+        papers[publication_id] = {
+            "title": bibliography.get("title", "Unknown Title"),
+            "year": bibliography.get("pub_year", "Unknown Year"),
+            "citations": int(publication.get("num_citations", 0)),
+        }
+
+    print(f"Google Scholar total: {profile['citations']}")
+    return profile, papers
+
+
+def fetch_json(url: str) -> dict:
+    """Fetch JSON from a public API with an identifiable user agent."""
+    request = Request(url, headers={"User-Agent": "al-folio-citation-updater/1.0"})
+    with urlopen(request, timeout=20) as response:
+        return yaml.safe_load(response.read())
+
+
+def fetch_inspirehep(inspirehep_id: str) -> dict:
+    """Sum citations for records linked to the author's INSPIRE BAI."""
+    print(f"Fetching INSPIRE profile: {inspirehep_id}")
+    author_data = fetch_json(f"https://inspirehep.net/api/authors/{inspirehep_id}")
+    author_ids = author_data.get("metadata", {}).get("ids", [])
+    bai = next(
+        (item.get("value") for item in author_ids if item.get("schema") == "INSPIRE BAI"),
+        None,
+    )
+    if not bai:
+        raise RuntimeError("INSPIRE returned no BAI for this author.")
+
+    query = urlencode({"q": f"a {bai}", "size": 250})
+    next_url = f"https://inspirehep.net/api/literature?{query}"
+    citations = 0
+    while next_url:
+        literature_data = fetch_json(next_url)
+        citations += sum(
+            int(record.get("metadata", {}).get("citation_count", 0))
+            for record in literature_data.get("hits", {}).get("hits", [])
+        )
+        next_url = literature_data.get("links", {}).get("next")
+
+    print(f"INSPIRE total: {citations}")
+    return {
+        "citations": citations,
+        "url": f"https://inspirehep.net/authors/{inspirehep_id}",
+    }
+
+
+def update_citations() -> None:
+    """Update profile metrics and publication-level Google Scholar citations."""
+    scholar_user_id, inspirehep_id = load_social_ids()
+    existing_data = load_existing_data()
+    citation_data = {
+        "metadata": existing_data.get("metadata", {}),
+        "metrics": existing_data.get("metrics", {}),
+        "papers": existing_data.get("papers", {}),
+    }
+    successful_sources = 0
+
     try:
-        author = scholarly.search_author_id(SCHOLAR_USER_ID)
-        author_data = scholarly.fill(author)
-    except Exception as e:
-        print(
-            f"Error fetching author data from Google Scholar for user ID '{SCHOLAR_USER_ID}': {e}. Please check your internet connection and Scholar user ID."
-        )
-        sys.exit(1)
+        scholar_profile, papers = fetch_google_scholar(scholar_user_id)
+        citation_data["metrics"]["google_scholar"] = scholar_profile
+        citation_data["papers"] = papers
+        successful_sources += 1
+    except Exception as error:
+        print(f"Warning: Google Scholar update failed: {error}")
 
-    if not author_data:
-        print(
-            f"Could not fetch author data for user ID '{SCHOLAR_USER_ID}'. Please verify the Scholar user ID and try again."
-        )
-        sys.exit(1)
+    try:
+        citation_data["metrics"]["inspirehep"] = fetch_inspirehep(inspirehep_id)
+        successful_sources += 1
+    except Exception as error:
+        print(f"Warning: INSPIRE update failed: {error}")
 
-    if "publications" not in author_data:
-        print(f"No publications found in author data for user ID '{SCHOLAR_USER_ID}'.")
-        sys.exit(1)
+    if successful_sources == 0:
+        raise RuntimeError("No citation provider could be updated.")
 
-    for pub in author_data["publications"]:
-        try:
-            pub_id = pub.get("pub_id") or pub.get("author_pub_id")
-            if not pub_id:
-                print(
-                    f"Warning: No ID found for publication: {pub.get('bib', {}).get('title', 'Unknown')}. This publication will be skipped."
-                )
-                continue
-
-            title = pub.get("bib", {}).get("title", "Unknown Title")
-            year = pub.get("bib", {}).get("pub_year", "Unknown Year")
-            citations = pub.get("num_citations", 0)
-
-            print(f"Found: {title} ({year}) - Citations: {citations}")
-
-            citation_data["papers"][pub_id] = {
-                "title": title,
-                "year": year,
-                "citations": citations,
-            }
-        except Exception as e:
-            print(
-                f"Error processing publication '{pub.get('bib', {}).get('title', 'Unknown')}': {e}. This publication will be skipped."
-            )
-
-    # Compare new data with existing data
-    if existing_data and existing_data.get("papers") == citation_data["papers"]:
-        print("No changes in citation data. Skipping file update.")
+    content_changed = (
+        citation_data["metrics"] != existing_data.get("metrics", {})
+        or citation_data["papers"] != existing_data.get("papers", {})
+    )
+    if not content_changed:
+        print("Citation data has not changed; leaving the file untouched.")
         return
 
+    citation_data["metadata"]["last_updated"] = datetime.now().strftime("%Y-%m-%d")
     try:
-        with open(OUTPUT_FILE, "w") as f:
-            yaml.dump(citation_data, f, width=1000, sort_keys=True)
-        print(f"Citation data saved to {OUTPUT_FILE}")
-    except Exception as e:
-        print(
-            f"Error writing citation data to {OUTPUT_FILE}: {e}. Please check file permissions and disk space."
-        )
-        sys.exit(1)
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
+            yaml.safe_dump(citation_data, file, width=1000, sort_keys=True)
+    except OSError as error:
+        raise RuntimeError(f"Could not write {OUTPUT_FILE}: {error}") from error
+    print(f"Citation data saved to {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
     try:
-        get_scholar_citations()
-    except Exception as e:
-        print(f"Unexpected error: {e}")
+        update_citations()
+    except Exception as error:
+        print(f"Citation update failed: {error}")
         sys.exit(1)

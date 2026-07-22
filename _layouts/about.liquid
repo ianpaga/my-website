@@ -44,6 +44,40 @@ layout: default
     </div>
   </section>
 
+  {% if site.data.citations.metrics %}
+    <section class="citation-metrics" aria-labelledby="citation-metrics-heading" data-reveal>
+      <div class="citation-metrics__intro">
+        <p class="section-label">Research impact</p>
+        <h2 id="citation-metrics-heading">Citation metrics</h2>
+      </div>
+      <div class="citation-metrics__list">
+        {% assign scholar_metric = site.data.citations.metrics.google_scholar %}
+        {% if scholar_metric %}
+          <a class="citation-metric" href="{{ scholar_metric.url }}" aria-label="View Google Scholar profile">
+            <span class="citation-metric__source">
+              <i class="ai ai-google-scholar" aria-hidden="true"></i>
+              Google Scholar
+            </span>
+            <strong>{{ scholar_metric.citations }}</strong>
+            <span>Citations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+          </a>
+        {% endif %}
+
+        {% assign inspire_metric = site.data.citations.metrics.inspirehep %}
+        {% if inspire_metric %}
+          <a class="citation-metric" href="{{ inspire_metric.url }}" aria-label="View INSPIRE profile">
+            <span class="citation-metric__source"><i class="ai ai-inspire" aria-hidden="true"></i> INSPIRE</span>
+            <strong>{{ inspire_metric.citations }}</strong>
+            <span>Citations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+          </a>
+        {% endif %}
+      </div>
+      {% if site.data.citations.metadata.last_updated %}
+        <p class="citation-metrics__updated">Updated {{ site.data.citations.metadata.last_updated | date: '%B %-d, %Y' }}</p>
+      {% endif %}
+    </section>
+  {% endif %}
+
   <section class="home-section home-section--research" aria-labelledby="research-heading">
     <h2 id="research-heading" class="sr-only">Research overview</h2>
     {{ content }}

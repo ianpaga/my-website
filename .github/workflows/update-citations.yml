@@ -1,4 +1,4 @@
-name: Update Google Scholar Citations
+name: Update Citation Metrics
 
 on:
   schedule:
@@ -42,7 +42,7 @@ jobs:
             echo "📝 No existing citations.yml file found."
           fi
 
-      - name: Run citation update script
+      - name: Update Google Scholar and INSPIRE metrics
         id: run_citation_update
         shell: bash
         run: |
@@ -53,11 +53,12 @@ jobs:
           status=$?
           end_time=$(date)
           if [ $status -eq 0 ]; then
-            echo "✅ Citation update succeeded (started at $start_time, ended at $end_time)."
-            echo "✅ Citation update succeeded." >> $GITHUB_STEP_SUMMARY
+            echo "✅ Citation metrics update succeeded (started at $start_time, ended at $end_time)."
+            echo "✅ Citation metrics update succeeded." >> $GITHUB_STEP_SUMMARY
           else
-            echo "❌ Citation update script failed with exit code $status (started at $start_time, ended at $end_time)."
-            echo "❌ Citation update script failed with exit code $status." >> $GITHUB_STEP_SUMMARY
+            echo "❌ Citation metrics update failed with exit code $status (started at $start_time, ended at $end_time)."
+            echo "❌ Citation metrics update failed with exit code $status." >> $GITHUB_STEP_SUMMARY
+            exit $status
           fi
           set -e
 
@@ -96,6 +97,6 @@ jobs:
           git add _data/citations.yml
           git diff --staged --quiet || (
             echo "📤 Committing and pushing changes..."
-            git commit -m "Update Google Scholar citations"
+            git commit -m "Update citation metrics"
             git push
           )

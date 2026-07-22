@@ -1,5 +1,12 @@
 metadata:
-  last_updated: '2026-06-17'
+  last_updated: '2026-07-22'
+metrics:
+  google_scholar:
+    citations: 331
+    url: https://scholar.google.com/citations?user=DWE-zkEAAAAJ&hl=en
+  inspirehep:
+    citations: 331
+    url: https://inspirehep.net/authors/1767008
 papers:
   DWE-zkEAAAAJ:2osOgNQ5qMEC:
     citations: 16
