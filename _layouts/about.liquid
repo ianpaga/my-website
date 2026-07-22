@@ -29,6 +29,25 @@ layout: default
           <span aria-hidden="true">·</span>
           <a href="https://www6.slac.stanford.edu">SLAC National Accelerator Laboratory</a>
         </div>
+        <div class="education-history" aria-label="Education">
+          <span class="education-history__item">
+            <strong>PhD</strong>
+            <a href="https://www.ku.dk/english/">University of Copenhagen</a>
+            <abbr title="Denmark">[DK]</abbr>
+          </span>
+          <span aria-hidden="true">·</span>
+          <span class="education-history__item">
+            <strong>Master</strong>
+            <a href="https://www.lunduniversity.lu.se/">Lund University</a>
+            <abbr title="Sweden">[SE]</abbr>
+          </span>
+          <span aria-hidden="true">·</span>
+          <span class="education-history__item">
+            <strong>Bachelor</strong>
+            <a href="https://www.ugto.mx/">University of Guanajuato</a>
+            <abbr title="Mexico">[MX]</abbr>
+          </span>
+        </div>
       </div>
     </div>
 
@@ -120,6 +139,7 @@ layout: default
         {% if scholar_metric.citations_per_year %}
           {% assign first_citation_year = scholar_metric.citations_per_year | first %}
           {% assign last_citation_year = scholar_metric.citations_per_year | last %}
+          {% assign citation_midpoint = scholar_metric.citation_peak | divided_by: 2 %}
           <div class="citation-history">
             <div class="citation-history__heading">
               <span>Annual citations</span>
@@ -132,11 +152,17 @@ layout: default
             >
               <div class="citation-history__axis" aria-hidden="true">
                 <span>{{ scholar_metric.citation_peak }}</span>
+                <span>{{ citation_midpoint }}</span>
                 <span>0</span>
               </div>
               <ol>
                 {% for year in scholar_metric.citations_per_year %}
-                  <li aria-label="{{ year.year }}: {{ year.citations }} citations">
+                  <li
+                    {% if year.citations == scholar_metric.citation_peak %}
+                      class="citation-history__peak"
+                    {% endif %}
+                    aria-label="{{ year.year }}: {{ year.citations }} citations"
+                  >
                     <div class="citation-history__bar-area" style="--bar-height: {{ year.percent }}%">
                       <span class="citation-history__value">{{ year.citations }}</span>
                       <span class="citation-history__bar" aria-hidden="true"></span>
