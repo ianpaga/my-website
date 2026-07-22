@@ -157,12 +157,7 @@ layout: default
               </div>
               <ol>
                 {% for year in scholar_metric.citations_per_year %}
-                  <li
-                    {% if year.citations == scholar_metric.citation_peak %}
-                      class="citation-history__peak"
-                    {% endif %}
-                    aria-label="{{ year.year }}: {{ year.citations }} citations"
-                  >
+                  <li aria-label="{{ year.year }}: {{ year.citations }} citations">
                     <div class="citation-history__bar-area" style="--bar-height: {{ year.percent }}%">
                       <span class="citation-history__value">{{ year.citations }}</span>
                       <span class="citation-history__bar" aria-hidden="true"></span>

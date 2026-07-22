@@ -443,9 +443,9 @@ body > .container[role="main"] {
 
 .citation-metrics {
   display: grid;
-  align-items: end;
-  grid-template-columns: minmax(170px, 0.38fr) minmax(0, 1fr);
-  gap: 1.5rem 3rem;
+  align-items: start;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   margin: 0 0 clamp(6rem, 10vw, 9rem);
   padding: 2rem 0;
   border-top: 1px solid var(--site-line);
@@ -637,6 +637,7 @@ body > .container[role="main"] {
   width: min(1.25rem, 52%);
   min-height: 2px;
   height: var(--bar-height);
+  max-height: calc(100% - 1rem);
   border-radius: 0.22rem 0.22rem 0 0;
   background: var(--site-accent);
   transform: translateX(-50%);
@@ -647,6 +648,7 @@ body > .container[role="main"] {
 
 .citation-history__value {
   position: absolute;
+  z-index: 2;
   right: 0;
   bottom: min(calc(var(--bar-height) + 0.3rem), calc(100% - 0.8rem));
   left: 0;
@@ -664,11 +666,6 @@ body > .container[role="main"] {
 }
 
 .citation-history li:hover .citation-history__value {
-  opacity: 1;
-}
-
-.citation-history__peak .citation-history__value,
-.citation-history li:last-child .citation-history__value {
   opacity: 1;
 }
 
