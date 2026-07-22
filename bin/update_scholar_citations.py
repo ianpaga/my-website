@@ -59,8 +59,25 @@ def fetch_google_scholar(scholar_user_id: str) -> tuple[dict, dict]:
     if not author_data or "publications" not in author_data:
         raise RuntimeError("Google Scholar returned no publications.")
 
+    citations_per_year = sorted(
+        (
+            {"year": int(year), "citations": int(citations)}
+            for year, citations in author_data.get("cites_per_year", {}).items()
+        ),
+        key=lambda item: item["year"],
+    )[-7:]
+    citation_peak = max(
+        (item["citations"] for item in citations_per_year), default=0
+    )
+    for item in citations_per_year:
+        item["percent"] = (
+            round(item["citations"] / citation_peak * 100, 1) if citation_peak else 0
+        )
+
     profile = {
         "citations": int(author_data.get("citedby", 0)),
+        "citation_peak": citation_peak,
+        "citations_per_year": citations_per_year,
         "url": f"https://scholar.google.com/citations?user={scholar_user_id}&hl=en",
     }
     papers = {}

@@ -520,6 +520,94 @@ body > .container[role="main"] {
   font-weight: 600;
 }
 
+.citation-history {
+  margin-top: 1.6rem;
+  padding: 1.25rem 0 0 1.5rem;
+  border-top: 1px solid var(--site-line);
+}
+
+.citation-history__heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+  color: var(--site-muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.citation-history__heading span:last-child {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.citation-history__plot {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.45rem;
+}
+
+.citation-history__axis {
+  display: flex;
+  height: 6rem;
+  justify-content: space-between;
+  flex-direction: column;
+  color: var(--site-muted);
+  font-size: 0.6rem;
+  line-height: 1;
+  text-align: right;
+}
+
+.citation-history ol {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.citation-history li {
+  min-width: 0;
+  text-align: center;
+}
+
+.citation-history__bar-area {
+  position: relative;
+  height: 6rem;
+  border-bottom: 1px solid var(--site-line);
+}
+
+.citation-history__bar {
+  position: absolute;
+  right: 20%;
+  bottom: 0;
+  left: 20%;
+  min-height: 2px;
+  height: var(--bar-height);
+  border-radius: 0.18rem 0.18rem 0 0;
+  background: var(--site-accent);
+}
+
+.citation-history__value {
+  position: absolute;
+  right: 0;
+  bottom: min(calc(var(--bar-height) + 0.18rem), calc(100% - 0.75rem));
+  left: 0;
+  color: var(--site-ink);
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+.citation-history__year {
+  display: block;
+  padding-top: 0.4rem;
+  color: var(--site-muted);
+  font-size: 0.6rem;
+}
+
 .citation-metrics__updated {
   margin: 0.85rem 0 0;
   color: var(--site-muted);
@@ -1081,6 +1169,10 @@ footer.sticky-bottom .container {
   .publication-venues {
     align-items: flex-start;
     flex-direction: column;
+    padding-left: 0;
+  }
+
+  .citation-history {
     padding-left: 0;
   }
 

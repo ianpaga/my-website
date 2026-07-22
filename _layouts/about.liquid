@@ -117,6 +117,38 @@ layout: default
           </div>
         {% endif %}
 
+        {% if scholar_metric.citations_per_year %}
+          {% assign first_citation_year = scholar_metric.citations_per_year | first %}
+          {% assign last_citation_year = scholar_metric.citations_per_year | last %}
+          <div class="citation-history">
+            <div class="citation-history__heading">
+              <span>Annual citations</span>
+              <span>Google Scholar</span>
+            </div>
+            <div
+              class="citation-history__plot"
+              role="img"
+              aria-label="Google Scholar citations received each year from {{ first_citation_year.year }} to {{ last_citation_year.year }}"
+            >
+              <div class="citation-history__axis" aria-hidden="true">
+                <span>{{ scholar_metric.citation_peak }}</span>
+                <span>0</span>
+              </div>
+              <ol>
+                {% for year in scholar_metric.citations_per_year %}
+                  <li aria-label="{{ year.year }}: {{ year.citations }} citations">
+                    <div class="citation-history__bar-area" style="--bar-height: {{ year.percent }}%">
+                      <span class="citation-history__value">{{ year.citations }}</span>
+                      <span class="citation-history__bar" aria-hidden="true"></span>
+                    </div>
+                    <span class="citation-history__year">{{ year.year }}</span>
+                  </li>
+                {% endfor %}
+              </ol>
+            </div>
+          </div>
+        {% endif %}
+
         {% if site.data.citations.metadata.last_updated %}
           <p class="citation-metrics__updated">Updated {{ site.data.citations.metadata.last_updated | date: '%B %-d, %Y' }}</p>
         {% endif %}

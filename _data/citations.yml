@@ -3,6 +3,29 @@ metadata:
 metrics:
   google_scholar:
     citations: 331
+    citation_peak: 86
+    citations_per_year:
+      - citations: 17
+        percent: 19.8
+        year: 2020
+      - citations: 27
+        percent: 31.4
+        year: 2021
+      - citations: 52
+        percent: 60.5
+        year: 2022
+      - citations: 41
+        percent: 47.7
+        year: 2023
+      - citations: 86
+        percent: 100
+        year: 2024
+      - citations: 71
+        percent: 82.6
+        year: 2025
+      - citations: 37
+        percent: 43.0
+        year: 2026
     url: https://scholar.google.com/citations?user=DWE-zkEAAAAJ&hl=en
   inspirehep:
     articles: 13
