@@ -30,10 +30,12 @@ metrics:
   inspirehep:
     articles: 13
     arxiv_categories:
-      - count: 8
-        name: astro-ph
+      - count: 7
+        name: astro-ph.HE
       - count: 4
         name: hep-ph
+      - count: 1
+        name: astro-ph.CO
     arxiv_submissions: 12
     arxiv_url: https://arxiv.org/search/?searchtype=author&query=Padilla-Gay%2C+I
     citations: 331

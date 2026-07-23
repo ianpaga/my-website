@@ -142,7 +142,7 @@ def fetch_inspirehep(inspirehep_id: str) -> dict:
             if isinstance(primary_category, list):
                 primary_category = primary_category[0] if primary_category else None
             if primary_category:
-                category = primary_category.split(".", maxsplit=1)[0]
+                category = primary_category
                 arxiv_category_counts[category] = (
                     arxiv_category_counts.get(category, 0) + 1
                 )
