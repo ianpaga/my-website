@@ -15,7 +15,12 @@
       muted: color("--site-muted", "#6f7779"),
       surface: color("--site-surface", "#ffffff"),
       astro: color("--category-astro", "#df7b22"),
+      astroCO: color("--category-astro-co", "#e5a029"),
+      astroHE: color("--category-astro-he", "#d9681b"),
+      astroSR: color("--category-astro-sr", "#bc8730"),
       hep: color("--category-hep", "#c94242"),
+      hepEX: color("--category-hep-ex", "#df654f"),
+      hepTH: color("--category-hep-th", "#a9385b"),
     };
   }
 
@@ -230,12 +235,13 @@
       category: item.dataset.category,
       value: Number(item.dataset.value),
     }));
+    canvas.style.height = `${Math.max(6, data.length * 2)}rem`;
 
     const render = () => {
       const { context, width, height } = prepareCanvas(canvas);
       const palette = getPalette(canvas);
       const peak = Math.max(...data.map((item) => item.value), 1);
-      const left = 62;
+      const left = 78;
       const right = 28;
       const top = 8;
       const rowHeight = (height - top - 8) / data.length;
@@ -247,7 +253,12 @@
       data.forEach((item, index) => {
         let categoryColor = palette.accent;
         if (item.category.startsWith("astro-ph")) categoryColor = palette.astro;
+        if (item.category === "astro-ph.CO") categoryColor = palette.astroCO;
+        if (item.category === "astro-ph.HE") categoryColor = palette.astroHE;
+        if (item.category === "astro-ph.SR") categoryColor = palette.astroSR;
         if (item.category.startsWith("hep-ph")) categoryColor = palette.hep;
+        if (item.category === "hep-ex") categoryColor = palette.hepEX;
+        if (item.category === "hep-th") categoryColor = palette.hepTH;
         const centerY = top + rowHeight * index + rowHeight / 2;
         const barHeight = Math.min(12, rowHeight * 0.42);
         context.fillStyle = categoryColor;
