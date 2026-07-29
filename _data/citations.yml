@@ -1,59 +1,59 @@
 metadata:
-  last_updated: '2026-07-22'
+  last_updated: '2026-07-29'
 metrics:
   google_scholar:
-    citations: 331
     citation_peak: 86
+    citations: 334
     citations_per_year:
-      - citations: 17
-        percent: 19.8
-        year: 2020
-      - citations: 27
-        percent: 31.4
-        year: 2021
-      - citations: 52
-        percent: 60.5
-        year: 2022
-      - citations: 41
-        percent: 47.7
-        year: 2023
-      - citations: 86
-        percent: 100
-        year: 2024
-      - citations: 71
-        percent: 82.6
-        year: 2025
-      - citations: 37
-        percent: 43.0
-        year: 2026
+    - citations: 18
+      percent: 20.9
+      year: 2020
+    - citations: 28
+      percent: 32.6
+      year: 2021
+    - citations: 54
+      percent: 62.8
+      year: 2022
+    - citations: 36
+      percent: 41.9
+      year: 2023
+    - citations: 86
+      percent: 100.0
+      year: 2024
+    - citations: 75
+      percent: 87.2
+      year: 2025
+    - citations: 36
+      percent: 41.9
+      year: 2026
     url: https://scholar.google.com/citations?user=DWE-zkEAAAAJ&hl=en
   inspirehep:
     articles: 13
     arxiv_categories:
-      - count: 7
-        name: astro-ph.HE
-      - count: 4
-        name: hep-ph
-      - count: 1
-        name: astro-ph.CO
+    - count: 7
+      name: astro-ph.HE
+    - count: 4
+      name: hep-ph
+    - count: 1
+      name: astro-ph.CO
     arxiv_submissions: 12
     arxiv_url: https://arxiv.org/search/?searchtype=author&query=Padilla-Gay%2C+I
     citations: 331
     h_index: 8
     url: https://inspirehep.net/authors/1767008
     venues:
-      - count: 4
-        name: JCAP
-      - count: 3
-        name: arXiv preprints
-      - count: 3
-        name: Physical Review D
-      - count: 1
-        name: JHEP
-      - count: 1
-        name: "Journal of Physics: Conference Series"
-      - count: 1
-        name: Physical Review Letters
+    - count: 4
+      name: JCAP
+    - count: 3
+      name: arXiv preprints
+    - count: 3
+      name: Physical Review D
+    - count: 1
+      name: JHEP
+    - count: 1
+      name: 'Journal of Physics: Conference Series'
+    - count: 1
+      name: Physical Review Letters
 papers:
   DWE-zkEAAAAJ:2osOgNQ5qMEC:
     citations: 16
@@ -72,20 +72,24 @@ papers:
     title: Neutrino fast flavor pendulum. II. Collisional damping
     year: '2022'
   DWE-zkEAAAAJ:W7OEmFMy1HYC:
-    citations: 13
+    citations: 14
     title: 'Flavor equilibration of supernova neutrinos: Exploring the dynamics of slow modes'
     year: '2025'
   DWE-zkEAAAAJ:WF5omc3nYNoC:
     citations: 0
     title: ournal of Cosmology and Astroparticle Physics
-    year: '2026'
+    year: '2025'
   DWE-zkEAAAAJ:Y0pCki6q_DkC:
     citations: 0
     title: Neutrino Flavor Conversion in Dense Astrophysical Environments
     year: '2022'
   DWE-zkEAAAAJ:YsMSGLbcyi4C:
-    citations: 0
+    citations: 1
     title: "\u03BD p-process in core-collapse supernovae: imprints of general relativistic effects"
+    year: '2026'
+  DWE-zkEAAAAJ:_FxGoFyzp5QC:
+    citations: 0
+    title: Solar-System Abundances of -Nuclides Probe Collective Neutrino Oscillations in Supernovae
     year: '2026'
   DWE-zkEAAAAJ:d1gkVwhDpl0C:
     citations: 1
@@ -96,13 +100,13 @@ papers:
     title: Series solutions of single-field models of inflation
     year: '2018'
   DWE-zkEAAAAJ:qjMakFHDy7sC:
-    citations: 82
+    citations: 83
     title: 'Neutrino flavor pendulum reloaded: The case of fast pairwise conversion'
     year: '2022'
   DWE-zkEAAAAJ:u-x6o8ySG0sC:
     citations: 53
     title: Multi-dimensional solution of fast neutrino conversions in binary neutron star merger remnants
-    year: '2021'
+    year: '2020'
   DWE-zkEAAAAJ:u5HHmVD_uO8C:
     citations: 59
     title: Neutrino propagation hinders fast pairwise flavor conversions
