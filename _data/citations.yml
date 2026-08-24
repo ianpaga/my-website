@@ -1,9 +1,9 @@
 metadata:
-  last_updated: '2026-08-17'
+  last_updated: '2026-08-24'
 metrics:
   google_scholar:
     citation_peak: 88
-    citations: 344
+    citations: 345
     citations_per_year:
     - citations: 17
       percent: 19.3
@@ -23,8 +23,8 @@ metrics:
     - citations: 71
       percent: 80.7
       year: 2025
-    - citations: 48
-      percent: 54.5
+    - citations: 49
+      percent: 55.7
       year: 2026
     url: https://scholar.google.com/citations?user=DWE-zkEAAAAJ&hl=en
   inspirehep:
@@ -38,7 +38,7 @@ metrics:
       name: astro-ph.CO
     arxiv_submissions: 12
     arxiv_url: https://arxiv.org/search/?searchtype=author&query=Padilla-Gay%2C+I
-    citations: 338
+    citations: 339
     h_index: 8
     url: https://inspirehep.net/authors/1767008
     venues:
@@ -64,7 +64,7 @@ papers:
     title: Fast flavor conversion of neutrinos in presence of matter bulk velocity
     year: '2021'
   DWE-zkEAAAAJ:Tyk-4Ss8FVUC:
-    citations: 11
+    citations: 12
     title: Symmetry breaking due to multi-angle matter-neutrino resonance in neutron star merger remnants
     year: '2024'
   DWE-zkEAAAAJ:UeHWp8X0CEIC:
