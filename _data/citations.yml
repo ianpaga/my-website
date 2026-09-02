@@ -1,9 +1,9 @@
 metadata:
-  last_updated: '2026-08-24'
+  last_updated: '2026-09-02'
 metrics:
   google_scholar:
     citation_peak: 88
-    citations: 345
+    citations: 348
     citations_per_year:
     - citations: 17
       percent: 19.3
@@ -20,32 +20,32 @@ metrics:
     - citations: 88
       percent: 100.0
       year: 2024
-    - citations: 71
-      percent: 80.7
+    - citations: 70
+      percent: 79.5
       year: 2025
-    - citations: 49
-      percent: 55.7
+    - citations: 53
+      percent: 60.2
       year: 2026
     url: https://scholar.google.com/citations?user=DWE-zkEAAAAJ&hl=en
   inspirehep:
-    articles: 13
+    articles: 14
     arxiv_categories:
-    - count: 7
+    - count: 8
       name: astro-ph.HE
     - count: 4
       name: hep-ph
     - count: 1
       name: astro-ph.CO
-    arxiv_submissions: 12
+    arxiv_submissions: 13
     arxiv_url: https://arxiv.org/search/?searchtype=author&query=Padilla-Gay%2C+I
-    citations: 339
+    citations: 342
     h_index: 8
     url: https://inspirehep.net/authors/1767008
     venues:
     - count: 4
-      name: JCAP
-    - count: 3
       name: arXiv preprints
+    - count: 4
+      name: JCAP
     - count: 3
       name: Physical Review D
     - count: 1
@@ -63,16 +63,20 @@ papers:
     citations: 5
     title: Fast flavor conversion of neutrinos in presence of matter bulk velocity
     year: '2021'
+  DWE-zkEAAAAJ:LkGwnXOMwfcC:
+    citations: 0
+    title: Energy-dependent slow collective flavor conversion of supernova neutrinos
+    year: '2026'
   DWE-zkEAAAAJ:Tyk-4Ss8FVUC:
     citations: 12
     title: Symmetry breaking due to multi-angle matter-neutrino resonance in neutron star merger remnants
     year: '2024'
   DWE-zkEAAAAJ:UeHWp8X0CEIC:
-    citations: 62
+    citations: 63
     title: Neutrino fast flavor pendulum. II. Collisional damping
     year: '2022'
   DWE-zkEAAAAJ:W7OEmFMy1HYC:
-    citations: 16
+    citations: 17
     title: 'Flavor equilibration of supernova neutrinos: Exploring the dynamics of slow modes'
     year: '2025'
   DWE-zkEAAAAJ:WF5omc3nYNoC:
@@ -84,7 +88,7 @@ papers:
     title: Neutrino Flavor Conversion in Dense Astrophysical Environments
     year: '2022'
   DWE-zkEAAAAJ:YsMSGLbcyi4C:
-    citations: 2
+    citations: 3
     title: "\u03BD p-process in core-collapse supernovae: imprints of general relativistic effects"
     year: '2026'
   DWE-zkEAAAAJ:_FxGoFyzp5QC:
